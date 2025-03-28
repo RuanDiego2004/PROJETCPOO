@@ -1,0 +1,138 @@
+
+### 🔑 Arquitetura e Camadas do Sistema
+
+O sistema que criamos pode ser descrito usando uma **arquitetura em camadas**, que segue o princípio de **separação de responsabilidades**. Vamos dividir as camadas principais do código:
+
+1. **Camada de Apresentação (UI)**: Onde o usuário interage com o sistema.
+2. **Camada de Serviço**: Onde a lógica de negócios é implementada.
+3. **Camada de Persistência (Repositórios)**: Onde os dados são armazenados e recuperados.
+4. **Modelos (Entidades)**: As classes que representam as entidades do sistema (usuários, motoristas, viagens).
+
+---
+
+### 1️⃣ Camada de Apresentação (UI)
+
+Esta camada é responsável pela **interação com o usuário**. Ela recebe a entrada do usuário (por meio de um terminal, por exemplo) e exibe as informações ou resultados solicitados.
+
+**Classe**: `UsuarioController`
+
+- **Responsabilidade**: É a interface entre o usuário e o sistema. Ele exibe os menus e opções de interação e chama os serviços necessários para realizar as operações.
+
+**Funções principais**:
+- Exibe o menu de opções para o usuário.
+- Lê a entrada do usuário e chama os métodos apropriados dos serviços.
+- Gerencia a entrada de dados, como a solicitação de viagens, início de viagens e conclusão de viagens.
+
+**Exemplo de Interação**:
+- O usuário pode escolher adicionar um usuário, solicitar uma viagem, ou ver o status de viagens existentes.
+- Essa camada **não** contém lógica de negócios nem de persistência; ela só interage com o usuário e chama os métodos apropriados dos serviços.
+
+---
+
+### 2️⃣ Camada de Serviço
+
+A camada de serviço contém a **lógica de negócios** do sistema. Ela faz a **coordenação** entre os modelos e os repositórios para processar as ações solicitadas pela camada de apresentação.
+
+**Classes**:
+- `UsuarioService`
+- `MotoristaService`
+- `ViagemService`
+
+**Responsabilidade**:
+- Implementar a lógica que manipula as viagens, motoristas e usuários. Por exemplo, um motorista pode ser designado a uma viagem, a viagem pode ser iniciada, concluída ou o status da viagem pode ser alterado.
+- Cada serviço pode interagir com os repositórios para salvar e recuperar informações de usuários, motoristas e viagens.
+
+**Funções principais**:
+- **UsuarioService**: Gerencia as operações de criação de usuários e consulta de usuários.
+- **MotoristaService**: Gerencia a disponibilidade dos motoristas, ou seja, se estão disponíveis para aceitar uma nova viagem ou se estão ocupados com uma viagem.
+- **ViagemService**: Lida com as operações de **solicitar viagem**, **iniciar viagem** e **concluir viagem**. Ele também calcula a tarifa de cada viagem e altera o status da viagem.
+
+---
+
+### 3️⃣ Camada de Persistência (Repositórios)
+
+A camada de persistência é responsável por **salvar e recuperar dados**. Aqui utilizamos **serialização em arquivos**, mas em sistemas reais, seria possível substituir por um banco de dados (relacional ou não relacional).
+
+**Classes**:
+- `UsuarioRepository`
+- `MotoristaRepository`
+- `ViagemRepository`
+
+**Responsabilidade**:
+- **UsuarioRepository**: Gerencia a leitura e escrita de dados dos usuários.
+- **MotoristaRepository**: Gerencia a leitura e escrita dos motoristas disponíveis.
+- **ViagemRepository**: Gerencia as viagens, salvando novas viagens ou atualizando as existentes.
+
+Esses repositórios são responsáveis por interagir com o **arquivo serializado** (por exemplo, `motoristas.dat`, `viagens.dat`, etc.) ou uma base de dados para armazenar as entidades de forma persistente. Eles permitem que o sistema armazene informações mesmo após o fechamento do programa.
+
+---
+
+### 4️⃣ Modelos (Entidades)
+
+Esta camada contém as **entidades do sistema**, que representam as **informações que o sistema manipula**.
+
+**Classes**:
+- `Usuario`
+- `Motorista`
+- `Viagem`
+
+**Responsabilidade**:
+- **Usuario**: Representa um usuário do sistema, que pode solicitar viagens.
+- **Motorista**: Representa um motorista disponível para realizar viagens. O motorista tem um status de disponibilidade (se está disponível ou não).
+- **Viagem**: Representa uma viagem solicitada por um usuário. A viagem tem um status (pendente, em progresso ou concluída) e um motorista designado.
+
+Essas classes **não possuem lógica de negócios** complexa, mas sim apenas os atributos que representam o estado de cada entidade.
+
+---
+
+### 📑 Fluxo de Interação
+
+Aqui está o fluxo de como o código interage entre as camadas:
+
+1. **Usuário solicita uma viagem**:
+   - O **controlador (`UsuarioController`)** chama o método `solicitarViagem()` do **serviço de viagem (`ViagemService`)**.
+   - O **serviço de viagem** busca motoristas disponíveis no **repositório de motoristas (`MotoristaRepository`)**.
+   - Se encontrar um motorista disponível, a **viagem** é criada e salva no **repositório de viagens (`ViagemRepository`)**.
+
+2. **Motorista é designado para a viagem**:
+   - O motorista é marcado como **indisponível** no **repositório de motoristas**.
+   - A viagem tem um **status "pendente"** e aguarda para ser iniciada.
+
+3. **Iniciar viagem**:
+   - O **controlador** chama `iniciarViagem()` no **serviço de viagem**, que altera o **status da viagem** para "em progresso".
+   - O **motorista** está a caminho do destino, e o status da viagem é atualizado.
+
+4. **Concluir viagem**:
+   - O **controlador** chama `concluirViagem()` no **serviço de viagem**, que altera o **status da viagem** para "concluída".
+   - O **motorista** é novamente marcado como **disponível** para novas viagens.
+   - O **repositório de motoristas** é atualizado para refletir que o motorista está disponível para uma nova viagem.
+
+---
+
+### 📦 Resumo das Camadas
+
+- **Camada de Apresentação**: Interage com o usuário, exibe informações e recebe entradas. Chama os serviços para executar operações.
+- **Camada de Serviço**: Contém a lógica de negócios (ex: como solicitar uma viagem, atribuir motoristas e alterar o status das viagens).
+- **Camada de Persistência (Repositórios)**: Responsável pela leitura e escrita de dados no armazenamento persistente (neste caso, arquivos).
+- **Modelos (Entidades)**: Representam as entidades no sistema (usuários, motoristas, viagens) e armazenam os dados associados a cada uma delas.
+
+---
+
+### 👥 Relações entre as Camadas:
+
+1. **UI → Serviço**: O controlador (UI) solicita ações do serviço (ex: solicitar viagem, iniciar viagem).
+2. **Serviço → Repositório**: O serviço interage com os repositórios para salvar e recuperar dados (ex: viagens, motoristas).
+3. **Serviço → Modelos**: O serviço manipula as entidades (modelos), como criar uma nova viagem ou atualizar o status da viagem.
+
+---
+
+### 💡 Conclusão
+
+Agora, o sistema simula um serviço de transporte similar ao **Uber**, onde:
+
+- **Motoristas** podem ser designados a viagens.
+- **Usuários** podem solicitar viagens.
+- O **status das viagens** é atualizado conforme as interações.
+- **Persistência** de dados usando **serialização** (no caso de motoristas e viagens).
+
+Se precisar de mais detalhes sobre alguma parte ou quiser adicionar mais funcionalidades, é só avisar! 😄
