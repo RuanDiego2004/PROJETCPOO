@@ -5,6 +5,8 @@ import Negocio.Basicas.Motorista;
 import java.util.List;
 
 public class RepositorioMotoristaArquivo implements IRepositorioMotorista{
+    String arquivo = "ArquivoMotorista.ser";
+    List<Motorista> motoristas;
 
     @Override
     public void adicionar(Motorista motorista) {

@@ -5,6 +5,8 @@ import Negocio.Basicas.Cidade;
 import java.util.List;
 
 public class RepositorioCidadesArquivo implements IRepositorioCidades {
+    String arquivo = "ArquivoCidade.ser";
+    List<Cidade> cidades;
 
     @Override
     public void adicionar(Cidade cidade) {
@@ -19,5 +21,9 @@ public class RepositorioCidadesArquivo implements IRepositorioCidades {
     @Override
     public List<Cidade> listarCidades() {
         return List.of();
+    }
+
+    private void salvar(){
+
     }
 }

@@ -1,10 +1,13 @@
 package Dados;
 
+import Negocio.Basicas.Cidade;
 import Negocio.Basicas.Cliente;
 
 import java.util.List;
 
 public class RepositorioClienteArquivo implements IRepositorioCliente {
+    String arquivo = "ArquivoCliente.ser";
+    List<Cliente> clientes;
 
     @Override
     public void adicionar(Cliente cliente) {

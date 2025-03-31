@@ -5,6 +5,8 @@ import Negocio.Basicas.Viagem;
 import java.util.List;
 
 public class RepositorioViagemArquivo implements IRepositorioViagem{
+    String arquivo = "ArquivoViagem.ser";
+    List<Viagem> viagens;
 
     @Override
     public Viagem buscarPorNome(String cidade) {
