@@ -1,6 +1,7 @@
 package Negocio.Basicas;
 
 public class Viagem {
+    private Cidade cidade;
     private String destino;
     private String data;
     private String hora;
@@ -10,7 +11,7 @@ public class Viagem {
     private double distancia;
 
 
-    public Viagem(String destino, String data, String hora, String origem, Motorista motorista, Cliente cliente, double distancia) {
+    public Viagem(String destino, String data, String hora, String origem, Motorista motorista, Cliente cliente, double distancia, Cidade cidade) {
         this.destino = destino;
         this.data = data;
         this.hora = hora;
@@ -18,6 +19,11 @@ public class Viagem {
         this.motorista = motorista;
         this.cliente = cliente;
         this.distancia = distancia;
+        this.cidade = cidade;
+    }
+
+    public Cidade getCidade() {
+        return cidade;
     }
 
     @Override
