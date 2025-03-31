@@ -1,4 +1,28 @@
 package Dados;
 
-public class RepositorioMotoristaArquivo {
+import Negocio.Basicas.Motorista;
+
+import java.util.List;
+
+public class RepositorioMotoristaArquivo implements IRepositorioMotorista{
+
+    @Override
+    public void adicionar(Motorista motorista) {
+
+    }
+
+    @Override
+    public Motorista buscarPorCPF(String CPF) {
+        return null;
+    }
+
+    @Override
+    public Motorista buscarPorCNH(String CNH) {
+        return null;
+    }
+
+    @Override
+    public List<Motorista> listarMotoristas() {
+        return List.of();
+    }
 }
