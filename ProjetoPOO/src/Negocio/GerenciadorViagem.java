@@ -13,6 +13,7 @@ public class GerenciadorViagem {
     //lista TODAS as viagens,
     public List<Viagem> listar(){
         return repositorio.listarViagens();
+        // teste pull
     }
 
     public List<Viagem> buscarPorCidade(Cidade cidade) {
