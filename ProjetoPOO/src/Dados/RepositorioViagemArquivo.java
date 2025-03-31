@@ -14,23 +14,20 @@ public class RepositorioViagemArquivo implements IRepositorioViagem{
     String arquivo = "ArquivoViagem.ser";
     List<Viagem> viagens;
 
-    RepositorioViagemArquivo() { viagens = carregar(); }
+    public RepositorioViagemArquivo() { viagens = carregar(); }
 
-    @Override
-    public List<Viagem> buscarPorCidade(Cidade cidade) {
-        List<Viagem> temp = new ArrayList<Viagem>();
-        for (Viagem v : viagens) {
-            if (v.getCidade().equals(cidade)) {
-                temp.add(v);
-            }
-        }
-        if(temp.isEmpty()){
-            return null;
-        }
-        return temp;
+    public void adicionar(Viagem viagem) {
+        viagens.add(viagem);
+        salvar();
     }
 
-
+    private void salvar(){
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(arquivo))){
+            oos.writeObject(viagens);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public List<Viagem> listarViagens() {
@@ -45,17 +42,19 @@ public class RepositorioViagemArquivo implements IRepositorioViagem{
         }
     }
 
-    public void adicionar(Viagem viagem) {
-        viagens.add(viagem);
-        salvar();
-    }
 
-    private void salvar(){
-        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(arquivo))){
-            oos.writeObject(viagens);
-        }catch(Exception e){
-            e.printStackTrace();
+    @Override
+    public List<Viagem> buscarPorCidade(Cidade cidade) {
+        List<Viagem> temp = new ArrayList<Viagem>();
+        for (Viagem v : viagens) {
+            if (v.getCidade().equals(cidade)) {
+                temp.add(v);
+            }
         }
+        if(temp.isEmpty()){
+            return null;
+        }
+        return temp;
     }
 
 
