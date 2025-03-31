@@ -1,6 +1,8 @@
 package Negocio.Basicas;
 
-public class Viagem {
+import java.io.Serializable;
+
+public class Viagem implements Serializable {
     private Cidade cidade;
     private String destino;
     private String data;

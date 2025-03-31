@@ -1,6 +1,6 @@
 package Negocio.Basicas;
 
-public class Cliente extends Pessoa{
+public class Cliente extends Pessoa {
     private Cartao credito;
 
 

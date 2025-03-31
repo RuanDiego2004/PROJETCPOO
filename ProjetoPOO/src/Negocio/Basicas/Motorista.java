@@ -2,7 +2,7 @@ package Negocio.Basicas;
 
 
 
-public class Motorista extends Pessoa{
+public class Motorista extends Pessoa {
     private String cnh;
     private Veiculo veiculo;
 //Renato testando

@@ -1,6 +1,7 @@
 package UI;
 
 import Negocio.Basicas.*;
+import Negocio.Fachada;
 
 public class Main {
     public static void main(String[] args) {
@@ -10,6 +11,11 @@ public class Main {
         Cidade cidade = new Cidade();
         Viagem viagem = new Viagem("casa de carai", "ontem", "5 pra daq a pouco", "Ufape", motorista, cliente,11111,cidade);
 
-        System.out.println(viagem);
+        Fachada fachada = new Fachada();
+
+        fachada.adicionarViagem(viagem);
+        for(Viagem v : fachada.listarViagem()){
+            System.out.println(v.toString());
+        }
     }
 }

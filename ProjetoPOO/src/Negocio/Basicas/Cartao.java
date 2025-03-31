@@ -1,5 +1,7 @@
 package Negocio.Basicas;
 
+import java.io.Serializable;
+
 public class Cartao {
     private String numero;
     private String senha;
