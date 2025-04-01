@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface IRepositorioCidades {
     void adicionar(Cidade cidade);
-    Cidade buscarPorNome(String cidade);
-    List<Cidade> listarCidades();
+    public Cidade buscarPorNome(String cidade);
+    public List<Cidade> listarCidades();
 }

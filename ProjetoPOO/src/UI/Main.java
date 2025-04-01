@@ -14,8 +14,9 @@ public class Main {
         Fachada fachada = new Fachada();
 
         fachada.adicionarViagem(viagem);
-        for(Viagem v : fachada.listarViagem()){
+        for(Viagem v : fachada.listarViagem()) {
             System.out.println(v.toString());
         }
+        }
     }
-}
+

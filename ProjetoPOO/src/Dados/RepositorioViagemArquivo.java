@@ -29,19 +29,15 @@ public class RepositorioViagemArquivo implements IRepositorioViagem{
         }
     }
 
-    @Override
-    public List<Viagem> listarViagens() {
-        return this.viagens;
-    }
+
 
     private List<Viagem> carregar(){
         try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(arquivo))){
             return (List<Viagem>) ois.readObject();
         }catch(Exception e){
-            return new ArrayList<>();
+            return new ArrayList<Viagem>();
         }
     }
-
 
     @Override
     public List<Viagem> buscarPorCidade(Cidade cidade) {
@@ -57,5 +53,9 @@ public class RepositorioViagemArquivo implements IRepositorioViagem{
         return temp;
     }
 
+    @Override
+    public List<Viagem> listarViagens() {
+        return this.viagens;
+    }
 
 }
