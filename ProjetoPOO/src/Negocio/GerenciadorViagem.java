@@ -5,24 +5,29 @@ import Dados.RepositorioViagemArquivo;
 import Negocio.Basicas.Cidade;
 import Negocio.Basicas.Viagem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GerenciadorViagem {
-    IRepositorioViagem repositorio = new RepositorioViagemArquivo();
+    IRepositorioViagem repositorio;
 
-    //lista TODAS as viagens,tem q fazer tratamento
-
-    public List<Viagem> listar(){
-        return repositorio.listarViagens();
-    }
-
-
-    public List<Viagem> buscarPorCidade(Cidade cidade) {
-        return repositorio.buscarPorCidade(cidade);
+    GerenciadorViagem(){
+        repositorio = new RepositorioViagemArquivo();
     }
 
     public void adicionarViagem(Viagem viagem){
         repositorio.adicionar(viagem);
     }
+
+    //lista TODAS as viagens,tem q fazer tratamento ou não
+    public List<Viagem> listar(){
+        return repositorio.listarViagens();
+    }
+
+    public List<Viagem> buscarPorCidade(Cidade cidade) {
+        return repositorio.buscarPorCidade(cidade);
+    }
+
+
 
 }

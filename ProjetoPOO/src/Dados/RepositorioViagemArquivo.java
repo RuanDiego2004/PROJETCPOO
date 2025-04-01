@@ -21,6 +21,19 @@ public class RepositorioViagemArquivo implements IRepositorioViagem{
         salvar();
     }
 
+    public List<Viagem> buscarPorCidade(Cidade cidade) {
+        List<Viagem> temp = new ArrayList<Viagem>();
+        for (Viagem v : viagens) {
+            if (v.getCidade().nome.equals(cidade.nome)) {
+                temp.add(v);
+            }
+        }
+        if(temp.isEmpty()){
+            return null;
+        }
+        return temp;
+    }
+
     private void salvar(){
         try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(arquivo))){
             oos.writeObject(viagens);
@@ -39,19 +52,9 @@ public class RepositorioViagemArquivo implements IRepositorioViagem{
         }
     }
 
-    @Override
-    public List<Viagem> buscarPorCidade(Cidade cidade) {
-        List<Viagem> temp = new ArrayList<Viagem>();
-        for (Viagem v : viagens) {
-            if (v.getCidade().equals(cidade)) {
-                temp.add(v);
-            }
-        }
-        if(temp.isEmpty()){
-            return null;
-        }
-        return temp;
-    }
+
+
+
 
     @Override
     public List<Viagem> listarViagens() {

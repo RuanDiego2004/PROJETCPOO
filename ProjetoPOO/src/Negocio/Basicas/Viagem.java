@@ -31,7 +31,8 @@ public class Viagem implements Serializable {
     @Override
     public String toString() {
         return "Viagem{" +
-                "destino='" + destino + '\'' +
+                "cidade='" + cidade.nome +
+                ", destino='" + destino + '\'' +
                 ", data='" + data + '\'' +
                 ", hora='" + hora + '\'' +
                 ", origem='" + origem + '\'' +

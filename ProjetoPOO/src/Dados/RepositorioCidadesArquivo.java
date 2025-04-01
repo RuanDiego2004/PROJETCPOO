@@ -1,6 +1,7 @@
 package Dados;
 
 import Negocio.Basicas.Cidade;
+import Negocio.EntidadeJaExisteException;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -10,13 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RepositorioCidadesArquivo implements IRepositorioCidades {
-    String arquivo = "ArquivoCidade.ser";
-    List<Cidade> cidades;
+    private String arquivo = "ArquivoCidade.ser";
+    private List<Cidade> cidades;
 
     public RepositorioCidadesArquivo() {cidades = carregar();}
 
     @Override
-    public void adicionar(Cidade cidade) {
+    public void adicionar(Cidade cidade) throws EntidadeJaExisteException {
         cidades.add(cidade);
         salvar();
     }
@@ -39,7 +40,7 @@ public class RepositorioCidadesArquivo implements IRepositorioCidades {
 
     @Override
     public Cidade buscarPorNome(String nomeCidade) {
-        for(Cidade c : cidades){
+        for(Cidade c : listarCidades()){
             if(c.nome.equals(nomeCidade)){
                 return c;
             }
