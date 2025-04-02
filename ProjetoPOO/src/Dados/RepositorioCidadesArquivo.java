@@ -41,7 +41,7 @@ public class RepositorioCidadesArquivo implements IRepositorioCidades {
     @Override
     public Cidade buscarPorNome(String nomeCidade) {
         for(Cidade c : listarCidades()){
-            if(c.nome.equals(nomeCidade)){
+            if(c.nome.equalsIgnoreCase(nomeCidade)){
                 return c;
             }
         }

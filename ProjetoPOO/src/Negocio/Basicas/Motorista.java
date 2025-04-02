@@ -32,7 +32,7 @@ public class Motorista extends Pessoa {
                 ", idade=" + getIdade() +
                 ", sexo='" + getSexo() + '\'' +
                 ", avaliacao=" + getAvaliacao() +
-                "cnh='" + cnh + '\'' +
+                ", cnh='" + cnh + '\'' +
                 ", veiculo=" + veiculo +
                 '}';
     }
