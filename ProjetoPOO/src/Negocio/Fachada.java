@@ -46,7 +46,6 @@ public class Fachada {
     }
 
     public Cidade buscarCidadePorNome(String nome){
-        System.out.println("Teste");
         return gerenciadorCidades.buscarCidadePorNome(nome);
     }
 

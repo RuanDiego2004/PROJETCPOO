@@ -1,45 +1,50 @@
 package Negocio.Basicas;
 
+
 import java.io.Serializable;
+import java.time.LocalDateTime;
+
 
 public class Viagem implements Serializable {
     private Cidade cidade;
-    private String destino;
-    private String data;
-    private String hora;
-    private String origem;
+    private Local partida;
+    private Local chegada;
+    private LocalDateTime dataCorrida;
     private Motorista motorista;
     private Cliente cliente;
-    private double distancia;
+    private TipoDeViagem tipoDeViagem;
+    private int distancia;
+    private double valor;
 
-
-    public Viagem(String destino, String data, String hora, String origem, Motorista motorista, Cliente cliente, double distancia, Cidade cidade) {
-        this.destino = destino;
-        this.data = data;
-        this.hora = hora;
-        this.origem = origem;
+    public Viagem(Cidade cidade, Local partida, Local chegada, Motorista motorista, Cliente cliente, TipoDeViagem tipoDeViagem) {
+        this.cidade = cidade;
+        this.partida = partida;
+        this.chegada = chegada;
+        this.dataCorrida = LocalDateTime.now();
         this.motorista = motorista;
         this.cliente = cliente;
-        this.distancia = distancia;
-        this.cidade = cidade;
+        this.tipoDeViagem = tipoDeViagem;
+        this.distancia = (int) (Math.random() * (3000 - 50 + 1)) + 50; // essa coisa feia ai é de 50m até 3000m.
+        this.valor = 5 + (0.40 + Math.random() * (2.00 - 0.40)) * (this.distancia / 1000.0); // minimo de 5 reais + algum valor de 0.4 a 2 reais por km
     }
 
     public Cidade getCidade() {
         return cidade;
     }
 
+
     @Override
     public String toString() {
         return "Viagem{" +
-                "cidade='" + cidade.nome +
-                ", destino='" + destino + '\'' +
-                ", data='" + data + '\'' +
-                ", hora='" + hora + '\'' +
-                ", origem='" + origem + '\'' +
+                "cidade=" + cidade +
+                ", partida=" + partida +
+                ", chegada=" + chegada +
+                ", dataCorrida=" + dataCorrida +
                 ", motorista=" + motorista +
                 ", cliente=" + cliente +
-                ", distancia='" + distancia + '\'' +
-                ", Veiculo ='" + motorista.getVeiculo().toString() + '\'' +
+                ", tipoDeViagem=" + tipoDeViagem +
+                ", distancia=" + distancia +
+                ", valor=" + valor +
                 '}';
     }
 }
