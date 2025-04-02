@@ -1,9 +1,7 @@
 package Negocio;
 
 import Dados.IRepositorioCidades;
-import Negocio.Basicas.Cidade;
-import Negocio.Basicas.Cliente;
-import Negocio.Basicas.Viagem;
+import Negocio.Basicas.*;
 
 import java.util.List;
 
@@ -60,12 +58,21 @@ public class Fachada {
         gerenciadorCliente.adicionarCliente(nome, cpf, idade, sexo);
     }
 
-    public List<Cliente> listarCliente(){ return gerenciadorCliente.ListarClientes(); }
+    public List<Cliente> listarCliente(){ return gerenciadorCliente.listarClientes(); }
 
     public Cliente buscarClientePorCpf(String Cpf){
         return gerenciadorCliente.buscarPorCpf(Cpf);
     }
 
+    // fim cliente
 
+    //inicio motorista
 
+    public void adicionarMotorista(String nome, String cpf, int  idade , String sexo, String CNH, Veiculo veiculo) {
+        gerenciadorMotorista.adicionarMotorista(nome, cpf, idade, sexo, CNH, veiculo);
+    }
+
+    public List<Motorista> listarMotorista(){ return gerenciadorMotorista.listarMotoristas(); }
+
+    public Motorista buscarMotoristaPorCNH(String CNH){ return gerenciadorMotorista.buscarMotoristaPorCNH(CNH); }
 }

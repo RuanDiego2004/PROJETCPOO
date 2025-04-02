@@ -23,7 +23,7 @@ public class GerenciadorCliente {
     public Cliente buscarPorCpf(String cpf) {
         return repositorio.buscarPorCpf(cpf);
     }
-    public List<Cliente> ListarClientes () {
+    public List<Cliente> listarClientes () {
         return repositorio.listarClientes();
     }
 

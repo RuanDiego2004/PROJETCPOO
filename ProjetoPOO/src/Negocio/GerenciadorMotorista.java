@@ -2,7 +2,31 @@ package Negocio;
 
 import Dados.IRepositorioMotorista;
 import Dados.RepositorioMotoristaArquivo;
+import Negocio.Basicas.Motorista;
+import Negocio.Basicas.Veiculo;
+
+import java.util.List;
 
 public class GerenciadorMotorista {
-    IRepositorioMotorista repositorio = new RepositorioMotoristaArquivo();
+    IRepositorioMotorista repositorio;
+
+    public GerenciadorMotorista() { repositorio = new RepositorioMotoristaArquivo(); }
+
+    public void adicionarMotorista(String nome, String cpf, int  idade , String sexo,String CNH, Veiculo veiculo) throws EntidadeJaExisteException {
+        if(repositorio.buscarPorCNH(CNH) != null){
+            throw new EntidadeJaExisteException("Já existe um motorista com esta CNH.");
+        }else {
+            Motorista motorista = new Motorista(nome, cpf, idade, sexo , CNH, veiculo);
+            repositorio.adicionar(motorista);
+        }
+    }
+
+    public Motorista buscarMotoristaPorCNH(String CNH)  {
+        return repositorio.buscarPorCNH(CNH);
+    }
+
+    public List<Motorista> listarMotoristas()  {
+      return repositorio.listarMotoristas();
+    }
+
 }

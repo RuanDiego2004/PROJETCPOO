@@ -13,12 +13,14 @@ public class Main {
         Fachada fachada = new Fachada();
 
 
-
     while (true) {
         System.out.println("\n==== MENU ====");
         System.out.println("1. Cadastrar Cliente");
         System.out.println("2. Buscar Cliente");
         System.out.println("3. Listar Clientes");
+        System.out.println("4. Cadastrar Motorista");
+        System.out.println("5. Buscar Motorista");
+        System.out.println("6. Listar Motorista");
         System.out.println("0. Sair");
         System.out.print("Escolha: ");
 
@@ -73,6 +75,62 @@ public class Main {
                 for (Cliente cliente : fachada.listarCliente()) {
                     System.out.println(cliente.toString());
                 }
+                break;
+            case 4:
+                System.out.print("Nome: ");
+                nome = sc.nextLine();
+                System.out.print("CPF: ");
+                cpf = sc.nextLine();
+                System.out.print("Idade: ");
+                try {
+                    idade = Integer.parseInt(sc.nextLine());
+                } catch (NumberFormatException e) {
+                    System.out.println("Idade inválida! Deve ser um número inteiro.");
+                    continue;
+                }
+                System.out.println("CNH :");
+                String cnh = sc.nextLine();
+                System.out.print("Sexo: ");
+                sexo = sc.nextLine();
+                System.out.println("Tipo de Veiculo(SUV, ECONOMICO, LUXO, MOTOCICLETA): ");
+                String tipo = sc.nextLine().toUpperCase();
+                TipoVeiculo tipoVeiculo;
+                try {
+                    tipoVeiculo = TipoVeiculo.valueOf(tipo);
+                }catch (IllegalArgumentException e) {
+                    System.out.println("Opção inválida! Use SUV, ECONOMICO, LUXO, MOTOCICLETA");
+                    continue;
+                }
+                System.out.println("Placa do Veiculo :");
+                String placa = sc.nextLine();
+                System.out.print("Modelo do Veiculo: ");
+                String modelo = sc.nextLine();
+                System.out.print("Cor do Veiculo: ");
+                String cor = sc.nextLine();
+                fachada.adicionarMotorista(nome, cpf, idade, sexo, cnh ,new Veiculo(placa, tipoVeiculo , cor ,modelo) );
+                System.out.println("Motorista cadastrado com sucesso!");
+
+
+
+
+
+                break;
+            case 5:
+                System.out.print("CNH: ");
+                cnh = sc.nextLine();
+                Motorista motorista = fachada.buscarMotoristaPorCNH(cnh);
+                if (motorista != null) {
+                    System.out.println(motorista.toString());
+                } else {
+                    System.out.println("Motorista não encontrado.");
+                }
+                break;
+            case 6:
+                System.out.println("Motoristas Cadastrados:");
+                for (Motorista m : fachada.listarMotorista()) {
+                    System.out.println(m.toString());
+                }
+
                 break;
 
             default:

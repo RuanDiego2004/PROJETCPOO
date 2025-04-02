@@ -1,8 +1,12 @@
 package Negocio.Basicas;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public abstract class Pessoa implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = -3952127239255731782L;
     private String nome;
     private String cpf;
     private int idade;
@@ -23,6 +27,18 @@ public abstract class Pessoa implements Serializable {
 
     public String getCpf() {
         return cpf;
+    }
+
+    public int getIdade() {
+        return idade;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public double getAvaliacao() {
+        return avaliacao;
     }
 
     @Override

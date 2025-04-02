@@ -1,8 +1,12 @@
 package Negocio.Basicas;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class Veiculo implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1045289863215245800L;
     private String placa;
     private TipoVeiculo tipo;
     private String cor;
