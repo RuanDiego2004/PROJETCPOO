@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface IRepositorioCliente {
     void adicionar(Cliente cliente);
-    Cliente buscarPorCpf(String nome);
+    Cliente buscarPorCpf(String cpf);
     List<Cliente> listarClientes();
 
 }

@@ -18,4 +18,21 @@ public abstract class Pessoa implements Serializable {
         this.sexo = sexo;
         this.avaliacao = 0;
     }
+
+    public String getNome() { return nome; }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    @Override
+    public String toString() {
+        return "Pessoa{" +
+                "nome='" + nome + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", idade=" + idade +
+                ", sexo='" + sexo + '\'' +
+                ", avaliacao=" + avaliacao +
+                '}';
+    }
 }

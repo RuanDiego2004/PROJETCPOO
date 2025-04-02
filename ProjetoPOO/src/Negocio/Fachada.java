@@ -2,6 +2,7 @@ package Negocio;
 
 import Dados.IRepositorioCidades;
 import Negocio.Basicas.Cidade;
+import Negocio.Basicas.Cliente;
 import Negocio.Basicas.Viagem;
 
 import java.util.List;
@@ -53,6 +54,17 @@ public class Fachada {
 
 
     // fim cidade
+
+    //inicio cliente
+    public void adicionarCliente(String nome, String cpf, int  idade , String sexo) {
+        gerenciadorCliente.adicionarCliente(nome, cpf, idade, sexo);
+    }
+
+    public List<Cliente> listarCliente(){ return gerenciadorCliente.ListarClientes(); }
+
+    public Cliente buscarClientePorCpf(String Cpf){
+        return gerenciadorCliente.buscarPorCpf(Cpf);
+    }
 
 
 
