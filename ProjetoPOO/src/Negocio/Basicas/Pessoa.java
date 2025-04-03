@@ -12,7 +12,7 @@ public abstract class Pessoa implements Serializable {
     private int idade;
     private String sexo;
     private double avaliacao;
-    private String senha;
+    private String senha = "...";
 
 
 

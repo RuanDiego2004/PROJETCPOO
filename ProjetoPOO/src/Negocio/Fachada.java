@@ -1,9 +1,9 @@
 package Negocio;
 
-import Dados.IRepositorioCidades;
 import Negocio.Basicas.*;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Fachada {
     GerenciadorCidades gerenciadorCidades ;
@@ -37,8 +37,12 @@ public class Fachada {
 
     // inicio cidade
 
-    public void adicionarCidade(Cidade cidade) throws EntidadeJaExisteException  {
-        gerenciadorCidades.adicionarCidade(cidade);
+    public void adicionarCidade(Cidade cidade) throws EntidadeNaoExisteException  {
+        try {
+            gerenciadorCidades.adicionarCidade(cidade);
+        }catch (EntidadeNaoExisteException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Cidade> listarCidade(){
@@ -53,7 +57,7 @@ public class Fachada {
     // fim cidade
 
     //inicio cliente
-    public void adicionarCliente(String nome, String cpf, int  idade , String sexo, String senha) {
+    public void adicionarCliente(String nome, String cpf, int  idade , String sexo, String senha) throws EntidadeJaExisteException{
         gerenciadorCliente.adicionarCliente(nome, cpf, idade, sexo, senha);
     }
 
@@ -76,17 +80,18 @@ public class Fachada {
     public Motorista buscarMotoristaPorCNH(String CNH){ return gerenciadorMotorista.buscarMotoristaPorCNH(CNH); }
 
     //inicio Autenticadores
-    public Cliente autenticarCliente(String cpf, String senha) {
+    public Cliente autenticarCliente(String cpf, String senha) throws EntidadeNaoExisteException {
         Cliente c = buscarClientePorCpf(cpf);
-        if (c == null && senha != c.getSenha()) {
-            return null;
+        if (c == null || !senha.equals(c.getSenha())) {
+            throw new EntidadeNaoExisteException("CPF ou senha estão incorretos");
         }
         return c;
     }
+
     public Motorista autenticarMotorista(String cnh, String senha) {
         Motorista m = buscarMotoristaPorCNH(cnh);
-        if (m == null && senha != m.getSenha()) {
-            return null;
+        if (m == null || !senha.equals(m.getSenha())) {
+            throw new EntidadeNaoExisteException("CNH ou senha estão incorretos");
         }
         return m;
     }
@@ -102,8 +107,6 @@ public class Fachada {
         }
         return null;
     }
-
-
 
 
 }

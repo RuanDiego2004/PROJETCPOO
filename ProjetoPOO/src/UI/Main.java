@@ -84,53 +84,52 @@ public class Main {
                                 cpf = scanner.nextLine();
                                 System.out.println("Senha: ");
                                 senha = scanner.nextLine();
-                                clienteAtivo= fachada.autenticarCliente(cpf, senha);
-                                if(clienteAtivo == null){
-                                    System.out.println("Cliente nao encontrado.");
-                                }else{
-                                    System.out.println("BEM VINDO " + clienteAtivo.getNome().toUpperCase());
-                                    System.out.println("Qual o tipo de Viagem Deseja Fazer?(Passageiro / Entrega)");
-                                    String tipoDeViagem = scanner.nextLine().toUpperCase();
-                                    TipoDeViagem tipoViagem;
-                                    try {
-                                        tipoViagem = TipoDeViagem.valueOf(tipoDeViagem);
-                                    }catch (IllegalArgumentException e) {
-                                        System.out.println("Opção inválida! Use Passageiro ou Entrega");
-                                        continue;
-                                    }
-                                    System.out.println("Qual o tipo de Veiculo? (SUV, ECONOMICO, LUXO, MOTOCICLETA) ");
-                                    String tipoDeVeiculo = scanner.nextLine().toUpperCase();
-                                    TipoVeiculo tipoVeiculo;
-                                    try {
-                                        tipoVeiculo = TipoVeiculo.valueOf(tipoDeVeiculo);
-                                    }catch (IllegalArgumentException e) {
-                                        System.out.println("Opção inválida! Use SUV, ECONOMICO, LUXO, MOTOCICLETA");
-                                        continue;
-                                    }
-                                    System.out.println();
-                                    System.out.println("Buscando...");
-                                    System.out.println();
-
-                                    Motorista motorista_aux = fachada.buscarMotoristaDisponivel(tipoVeiculo);
-                                    if(motorista_aux == null){
-                                        System.out.println("Nenhum motorista disponivel para essa viagem no momento.");
-                                        System.out.println("Tente novamente mais tarde.");
-                                    }else{
-                                        System.out.println("Origem:");
-                                        String nomeOrigem = scanner.nextLine();
-                                        String enderecoOrigem = scanner.nextLine();
-                                        System.out.println("Destino");
-                                        String nomeDestino = scanner.nextLine();
-                                        String enderecoDestino = scanner.nextLine();
-                                        fachada.adicionarViagem(new Viagem ( cidadeAtual, new Local(nomeOrigem,enderecoOrigem),new Local(nomeDestino, enderecoDestino), motorista_aux, clienteAtivo, tipoViagem));
-                                        System.out.println("Pedido de viagem feito, aguarde o motorista");
-                                        System.out.println();
-                                        System.out.println();
-
-                                    }
-
+                                try {
+                                    clienteAtivo = fachada.autenticarCliente(cpf, senha);
+                                }catch (EntidadeNaoExisteException e){
+                                    e.printStackTrace();
+                                    continue;
                                 }
 
+                                System.out.println("BEM VINDO " + clienteAtivo.getNome().toUpperCase());
+                                System.out.println("Qual o tipo de Viagem Deseja Fazer?(Passageiro / Entrega)");
+                                String tipoDeViagem = scanner.nextLine().toUpperCase();
+                                TipoDeViagem tipoViagem;
+                                try {
+                                    tipoViagem = TipoDeViagem.valueOf(tipoDeViagem);
+                                }catch (IllegalArgumentException e) {
+                                    System.out.println("Opção inválida! Use Passageiro ou Entrega");
+                                    continue;
+                                }
+                                System.out.println("Qual o tipo de Veiculo? (SUV, ECONOMICO, LUXO, MOTOCICLETA) ");
+                                String tipoDeVeiculo = scanner.nextLine().toUpperCase();
+                                TipoVeiculo tipoVeiculo;
+                                try {
+                                    tipoVeiculo = TipoVeiculo.valueOf(tipoDeVeiculo);
+                                }catch (IllegalArgumentException e) {
+                                    System.out.println("Opção inválida! Use SUV, ECONOMICO, LUXO, MOTOCICLETA");
+                                    continue;
+                                }
+                                System.out.println();
+                                System.out.println("Buscando...");
+                                System.out.println();
+
+                                Motorista motorista_aux = fachada.buscarMotoristaDisponivel(tipoVeiculo);
+                                if(motorista_aux == null){
+                                    System.out.println("Nenhum motorista disponivel para essa viagem no momento.");
+                                    System.out.println("Tente novamente mais tarde.");
+                                }else {
+                                    System.out.println("Origem:");
+                                    String nomeOrigem = scanner.nextLine();
+                                    String enderecoOrigem = scanner.nextLine();
+                                    System.out.println("Destino");
+                                    String nomeDestino = scanner.nextLine();
+                                    String enderecoDestino = scanner.nextLine();
+                                    fachada.adicionarViagem(new Viagem(cidadeAtual, new Local(nomeOrigem, enderecoOrigem), new Local(nomeDestino, enderecoDestino), motorista_aux, clienteAtivo, tipoViagem));
+                                    System.out.println("Pedido de viagem feito, aguarde o motorista");
+                                    System.out.println();
+                                    System.out.println();
+                                }
                                 break;
 
                             case 2:
@@ -194,15 +193,14 @@ public class Main {
                                 cnh = scanner.nextLine();
                                 System.out.println("Senha: ");
                                 senha = scanner.nextLine();
-                                motoristaAtivo = fachada.autenticarMotorista(cnh, senha);
-                                if(motoristaAtivo == null){
-                                    System.out.println("Motorista nao encontrado.");
-                                }else{
-                                    System.out.println("BEM VINDO " + motoristaAtivo.getNome().toUpperCase());
-
-
-
+                                try {
+                                    motoristaAtivo = fachada.autenticarMotorista(cnh, senha);
+                                }catch (EntidadeNaoExisteException e){
+                                    e.printStackTrace();
+                                    continue;
                                 }
+                                System.out.println("BEM VINDO " + motoristaAtivo.getNome().toUpperCase());
+
                                 break;
 
                             case 2:
