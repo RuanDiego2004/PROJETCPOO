@@ -12,15 +12,17 @@ public abstract class Pessoa implements Serializable {
     private int idade;
     private String sexo;
     private double avaliacao;
+    private String senha;
 
 
 
-    public Pessoa(String nome, String cpf, int idade, String sexo) {
+    public Pessoa(String nome, String cpf, int idade, String sexo, String senha) {
         this.nome = nome;
         this.cpf = cpf;
         this.idade = idade;
         this.sexo = sexo;
         this.avaliacao = 0;
+        this.senha = senha;
     }
 
     public String getNome() { return nome; }
@@ -41,11 +43,14 @@ public abstract class Pessoa implements Serializable {
         return avaliacao;
     }
 
+    public String getSenha() {
+        return senha;
+    }
+
     @Override
     public String toString() {
         return "Pessoa{" +
-                "nome='" + nome + '\'' +
-                ", cpf='" + cpf + '\'' +
+                "nome='" + nome + '\'' + '\'' +
                 ", idade=" + idade +
                 ", sexo='" + sexo + '\'' +
                 ", avaliacao=" + avaliacao +

@@ -12,11 +12,11 @@ public class GerenciadorCliente {
 
     public GerenciadorCliente() { repositorio = new RepositorioClienteArquivo();  }
 
-    public void adicionarCliente(String nome, String cpf, int  idade , String sexo) throws EntidadeJaExisteException {
+    public void adicionarCliente(String nome, String cpf, int  idade , String sexo, String senha) throws EntidadeJaExisteException {
         if(repositorio.buscarPorCpf(cpf) != null){
             throw new EntidadeJaExisteException("Já existe uma cidade com este nome.");
         }else {
-            Cliente cliente = new Cliente(nome, cpf, idade, sexo);
+            Cliente cliente = new Cliente(nome, cpf, idade, sexo, senha);
             repositorio.adicionar(cliente);
         }
     }

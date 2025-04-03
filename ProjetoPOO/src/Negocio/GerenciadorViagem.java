@@ -2,8 +2,7 @@ package Negocio;
 
 import Dados.IRepositorioViagem;
 import Dados.RepositorioViagemArquivo;
-import Negocio.Basicas.Cidade;
-import Negocio.Basicas.Viagem;
+import Negocio.Basicas.*;
 
 import java.util.ArrayList;
 import java.util.List;

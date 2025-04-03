@@ -12,11 +12,11 @@ public class GerenciadorMotorista {
 
     public GerenciadorMotorista() { repositorio = new RepositorioMotoristaArquivo(); }
 
-    public void adicionarMotorista(String nome, String cpf, int  idade , String sexo,String CNH, Veiculo veiculo) throws EntidadeJaExisteException {
+    public void adicionarMotorista(String nome, String cpf, int  idade , String sexo,String CNH, Veiculo veiculo, String senha) throws EntidadeJaExisteException {
         if(repositorio.buscarPorCNH(CNH) != null){
             throw new EntidadeJaExisteException("Já existe um motorista com esta CNH.");
         }else {
-            Motorista motorista = new Motorista(nome, cpf, idade, sexo , CNH, veiculo);
+            Motorista motorista = new Motorista(nome, cpf, idade, sexo , CNH, veiculo, senha);
             repositorio.adicionar(motorista);
         }
     }

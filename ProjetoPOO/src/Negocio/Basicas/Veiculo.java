@@ -19,6 +19,10 @@ public class Veiculo implements Serializable {
         this.modelo = modelo;
     }
 
+    public TipoVeiculo getTipo() {
+        return tipo;
+    }
+
     @Override
     public String toString() {
         return "Veiculo{" +

@@ -1,11 +1,14 @@
 package Negocio.Basicas;
 
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 
 public class Viagem implements Serializable {
+    @Serial
+    private static final long serialVersionUID = -4552933681783633117L;
     private Cidade cidade;
     private Local partida;
     private Local chegada;
