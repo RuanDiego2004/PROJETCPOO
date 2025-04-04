@@ -16,6 +16,7 @@ public class Main {
         Cliente clienteAtivo = null;
         Motorista motoristaAtivo = null;
 
+
         // Declarações de Auxiliares
         String cpf;
         String senha;
@@ -70,6 +71,9 @@ public class Main {
             opcao = Integer.parseInt(scanner.nextLine());
             opcaomenor = 0;
             switch(opcao){
+                case 1:
+
+                break;
                 case 2:
                     while (opcaomenor != -1) {
                         System.out.println("1 - Login/Pedir Viagem");

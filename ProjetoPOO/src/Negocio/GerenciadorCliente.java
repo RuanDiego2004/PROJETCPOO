@@ -14,7 +14,7 @@ public class GerenciadorCliente {
 
     public void adicionarCliente(String nome, String cpf, int  idade , String sexo, String senha) throws EntidadeJaExisteException {
         if(repositorio.buscarPorCpf(cpf) != null){
-            throw new EntidadeJaExisteException("Já existe um Cliente com este CPF.");
+            throw new EntidadeJaExisteException();
         }
         Cliente cliente = new Cliente(nome, cpf, idade, sexo, senha);
         repositorio.adicionar(cliente);
