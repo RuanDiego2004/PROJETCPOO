@@ -76,6 +76,14 @@ public class Fachada {
         gerenciadorMotorista.adicionarMotorista(nome, cpf, idade, sexo, CNH, veiculo, senha);
     }
 
+    public void validarPagamento(Cliente cliente,String forma){
+        gerenciadorCliente.validarPagamento(cliente,forma);
+    }
+
+    public void validarPagamento(Cliente cliente,String forma,String numero,double valor) throws Exception {
+        gerenciadorCliente.validarPagamento(cliente,forma,numero, valor);
+    }
+
     public List<Motorista> listarMotorista(){ return gerenciadorMotorista.listarMotoristas(); }
 
     public Motorista buscarMotoristaPorCNH(String CNH){ return gerenciadorMotorista.buscarMotoristaPorCNH(CNH); }

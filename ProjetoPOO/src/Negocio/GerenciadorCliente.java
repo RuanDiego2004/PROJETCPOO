@@ -2,7 +2,9 @@ package Negocio;
 
 import Dados.IRepositorioCliente;
 import Dados.RepositorioClienteArquivo;
+import Negocio.Basicas.Cartao;
 import Negocio.Basicas.Cliente;
+import Negocio.Basicas.FormaDePagamento;
 
 import java.util.List;
 
@@ -26,5 +28,28 @@ public class GerenciadorCliente {
     }
 
     // talvez validar forma de pagamento seja aqui??
+    public void validarPagamento(Cliente cliente,String forma) {
 
+    }
+
+    public void validarPagamento(Cliente cliente,String forma,String numero,double valor) throws Exception{
+        Cartao cartao= null;
+        for(FormaDePagamento fdp : cliente.getFormasDePagamento()){
+            //teste se for Cartão
+            if(fdp.getTipo().equals(forma)){
+                //Teste se tem numero
+                cartao= (Cartao) fdp;
+                if(cartao.getNumero().equals(numero)){
+                    // Teste se tem limite
+                    if(cartao.getLimitediposnivel() >= valor){
+                        //tem limite
+                        cartao.setLimitediposnivel(cartao.getLimitediposnivel() - valor); //descontando limite
+                    }
+                }
+            }
+        }
+
+    }
+    // oq ele retornaria se nao encontrasse cartão?
 }
+

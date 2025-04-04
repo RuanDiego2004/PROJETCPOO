@@ -3,7 +3,7 @@ package Negocio.Basicas;
 import java.io.Serializable;
 
 public class Cartao extends FormaDePagamento{
-    private String numero;
+    public String numero;
     private int senha;
     private double limite;
     private double limitediposnivel;
@@ -20,5 +20,19 @@ public class Cartao extends FormaDePagamento{
         return limite;
     }
 
+    public String getNumero() {
+        return numero;
+    }
 
+    public int getSenha() {
+        return senha;
+    }
+
+    public double getLimitediposnivel() {
+        return limitediposnivel;
+    }
+
+    public void setLimitediposnivel(double limitediposnivel) {
+        this.limitediposnivel = limitediposnivel;
+    }
 }

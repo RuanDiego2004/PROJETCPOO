@@ -1,4 +1,4 @@
-package Negocio.Basicas;
+package Negocio;
 
 public class LimiteInsuficienteException extends RuntimeException {
     public LimiteInsuficienteException(String message) {
