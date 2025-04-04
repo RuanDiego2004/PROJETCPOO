@@ -87,7 +87,7 @@ public class Main {
                                 try {
                                     clienteAtivo = fachada.autenticarCliente(cpf, senha);
                                 }catch (EntidadeNaoExisteException e){
-                                    e.printStackTrace();
+                                    System.out.println("Erro: "+ e.getMessage());
                                     continue;
                                 }
 
@@ -125,7 +125,8 @@ public class Main {
                                     System.out.println("Destino");
                                     String nomeDestino = scanner.nextLine();
                                     String enderecoDestino = scanner.nextLine();
-                                    fachada.adicionarViagem(new Viagem(cidadeAtual, new Local(nomeOrigem, enderecoOrigem), new Local(nomeDestino, enderecoDestino), motorista_aux, clienteAtivo, tipoViagem));
+                                    FormaDePagamento fdp = new FormaDePagamento("AAAA");
+                                    fachada.adicionarViagem(new Viagem(cidadeAtual, new Local(nomeOrigem, enderecoOrigem), new Local(nomeDestino, enderecoDestino), motorista_aux, clienteAtivo, tipoViagem,fdp));
                                     System.out.println("Pedido de viagem feito, aguarde o motorista");
                                     System.out.println();
                                     System.out.println();

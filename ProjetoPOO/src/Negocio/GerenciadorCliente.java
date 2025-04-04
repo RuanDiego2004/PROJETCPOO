@@ -26,5 +26,6 @@ public class GerenciadorCliente {
         return repositorio.listarClientes();
     }
 
+    // talvez validar forma de pagamento seja aqui??
 
 }

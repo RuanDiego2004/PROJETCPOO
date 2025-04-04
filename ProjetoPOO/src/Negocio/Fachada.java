@@ -45,6 +45,10 @@ public class Fachada {
         }
     }
 
+    public String validarPagamento(String tipoPagamento) throws LimiteInsuficienteException {
+        return
+    }
+
     public List<Cidade> listarCidade(){
         return gerenciadorCidades.ListarCidades();
     }

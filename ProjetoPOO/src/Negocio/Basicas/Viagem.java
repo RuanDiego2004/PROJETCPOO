@@ -16,10 +16,11 @@ public class Viagem implements Serializable {
     private Motorista motorista;
     private Cliente cliente;
     private TipoDeViagem tipoDeViagem;
+    private FormaDePagamento formaDePagamento;
     private int distancia;
     private double valor;
 
-    public Viagem(Cidade cidade, Local partida, Local chegada, Motorista motorista, Cliente cliente, TipoDeViagem tipoDeViagem) {
+    public Viagem(Cidade cidade, Local partida, Local chegada, Motorista motorista, Cliente cliente, TipoDeViagem tipoDeViagem,FormaDePagamento formaDePagamento) {
         this.cidade = cidade;
         this.partida = partida;
         this.chegada = chegada;
@@ -29,6 +30,7 @@ public class Viagem implements Serializable {
         this.tipoDeViagem = tipoDeViagem;
         this.distancia = (int) (Math.random() * (3000 - 50 + 1)) + 50; // essa coisa feia ai é de 50m até 3000m.
         this.valor = 5 + (0.40 + Math.random() * (2.00 - 0.40)) * (this.distancia / 1000.0); // minimo de 5 reais + algum valor de 0.4 a 2 reais por km
+        this.formaDePagamento = formaDePagamento;
     }
 
     public Cidade getCidade() {
