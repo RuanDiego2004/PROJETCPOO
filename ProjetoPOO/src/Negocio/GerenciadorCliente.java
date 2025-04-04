@@ -2,7 +2,6 @@ package Negocio;
 
 import Dados.IRepositorioCliente;
 import Dados.RepositorioClienteArquivo;
-import Negocio.Basicas.Cidade;
 import Negocio.Basicas.Cliente;
 
 import java.util.List;
@@ -12,9 +11,9 @@ public class GerenciadorCliente {
 
     public GerenciadorCliente() { repositorio = new RepositorioClienteArquivo();  }
 
-    public void adicionarCliente(String nome, String cpf, int  idade , String sexo, String senha) throws EntidadeJaExisteException {
+    public void adicionarCliente(String nome, String cpf, int  idade , String sexo, String senha) throws CPFJaUtilizadoException {
         if(repositorio.buscarPorCpf(cpf) != null){
-            throw new EntidadeJaExisteException();
+            throw new CPFJaUtilizadoException();
         }
         Cliente cliente = new Cliente(nome, cpf, idade, sexo, senha);
         repositorio.adicionar(cliente);

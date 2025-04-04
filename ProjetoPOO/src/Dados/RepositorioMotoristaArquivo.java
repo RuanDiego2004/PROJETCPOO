@@ -43,6 +43,16 @@ public class RepositorioMotoristaArquivo implements IRepositorioMotorista{
             e.printStackTrace();
         }
     }
+
+    public Motorista buscarPorCPF(String CPF){
+        for (Motorista motorista : motoristas) {
+            if(motorista.getCpf().equals(CPF)){
+                return motorista;
+            }
+        }
+        return null;
+    }
+
     private List<Motorista> carregar() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(arquivo))) {
             return (List<Motorista>) ois.readObject();
