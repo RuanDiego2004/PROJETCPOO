@@ -37,11 +37,11 @@ public class Fachada {
 
     // inicio cidade
 
-    public void adicionarCidade(Cidade cidade) throws EntidadeNaoExisteException  {
+    public void adicionarCidade(Cidade cidade) throws CidadeJaExisteException  {
         try {
             gerenciadorCidades.adicionarCidade(cidade);
-        }catch (EntidadeNaoExisteException e) {
-            e.printStackTrace();
+        }catch (CidadeJaExisteException e) {
+            e.getMessage();
         }
     }
 
@@ -59,7 +59,7 @@ public class Fachada {
     // fim cidade
 
     //inicio cliente
-    public void adicionarCliente(String nome, String cpf, int  idade , String sexo, String senha) throws EntidadeJaExisteException{
+    public void adicionarCliente(String nome, String cpf, int  idade , String sexo, String senha) throws CPFJaUtilizadoException{
         gerenciadorCliente.adicionarCliente(nome, cpf, idade, sexo, senha);
     }
 
@@ -73,7 +73,7 @@ public class Fachada {
 
     //inicio motorista
 
-    public void adicionarMotorista(String nome, String cpf, int  idade , String sexo, String CNH, Veiculo veiculo , String senha) {
+    public void adicionarMotorista(String nome, String cpf, int  idade , String sexo, String CNH, Veiculo veiculo , String senha) throws Exception {
         gerenciadorMotorista.adicionarMotorista(nome, cpf, idade, sexo, CNH, veiculo, senha);
     }
 
@@ -82,18 +82,18 @@ public class Fachada {
     public Motorista buscarMotoristaPorCNH(String CNH){ return gerenciadorMotorista.buscarMotoristaPorCNH(CNH); }
 
     //inicio Autenticadores
-    public Cliente autenticarCliente(String cpf, String senha) throws EntidadeNaoExisteException {
+    public Cliente autenticarCliente(String cpf, String senha) throws LoginInvalidoException {
         Cliente c = buscarClientePorCpf(cpf);
         if (c == null || !senha.equals(c.getSenha())) {
-            throw new EntidadeNaoExisteException("CPF ou senha estão incorretos");
+            throw new LoginInvalidoException();
         }
         return c;
     }
 
-    public Motorista autenticarMotorista(String cnh, String senha) {
+    public Motorista autenticarMotorista(String cnh, String senha) throws LoginInvalidoException{
         Motorista m = buscarMotoristaPorCNH(cnh);
         if (m == null || !senha.equals(m.getSenha())) {
-            throw new EntidadeNaoExisteException("CNH ou senha estão incorretos");
+            throw new LoginInvalidoException();
         }
         return m;
     }

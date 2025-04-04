@@ -5,6 +5,7 @@ import Negocio.*;
 import Negocio.Basicas.*;
 import Negocio.Fachada;
 
+import java.security.spec.ECField;
 import java.util.List;
 import java.util.Scanner;
 
@@ -35,8 +36,8 @@ public class Main {
             try{
                 fachada.adicionarCidade(new Cidade(nome));
                 System.out.println("Cidade cadastrada.");
-            }catch (Exception e){
-                System.out.println("Erro: " + e.getMessage());
+            }catch (CidadeJaExisteException e){
+                System.out.println(e.getMensagem());
             }
         }
         break;
@@ -90,8 +91,8 @@ public class Main {
                                 senha = scanner.nextLine();
                                 try {
                                     clienteAtivo = fachada.autenticarCliente(cpf, senha);
-                                }catch (EntidadeNaoExisteException e){
-                                    System.out.println("Erro: "+ e.getMessage());
+                                }catch (LoginInvalidoException e){
+                                    System.out.println(e.getMensagem());
                                     continue;
                                 }
 
@@ -200,8 +201,8 @@ public class Main {
                                 senha = scanner.nextLine();
                                 try {
                                     motoristaAtivo = fachada.autenticarMotorista(cnh, senha);
-                                }catch (EntidadeNaoExisteException e){
-                                    e.printStackTrace();
+                                }catch (LoginInvalidoException e){
+                                    e.getMensagem();
                                     continue;
                                 }
                                 System.out.println("BEM VINDO " + motoristaAtivo.getNome().toUpperCase());
@@ -259,7 +260,13 @@ public class Main {
                                 String modelo = scanner.nextLine();
                                 System.out.print("Cor do Veiculo: ");
                                 String cor = scanner.nextLine();
-                                fachada.adicionarMotorista(nome, cpf, idade, sexo, cnh ,new Veiculo(placa, tipoVeiculo , cor ,modelo), senha);
+                                try {
+                                    fachada.adicionarMotorista(nome, cpf, idade, sexo, cnh, new Veiculo(placa, tipoVeiculo, cor, modelo), senha);
+                                } catch (CNHJaUtilizadaException e) {
+                                    e.getMensagem();
+                                } catch (CPFJaUtilizadoException e){
+                                    e.getMensagem();
+                                }
                                 System.out.println("Motorista cadastrado com sucesso!");
 
                                 break;
