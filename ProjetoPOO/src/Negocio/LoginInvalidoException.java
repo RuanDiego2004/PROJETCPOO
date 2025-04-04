@@ -2,10 +2,8 @@ package Negocio;
 
 public class LoginInvalidoException extends RuntimeException {
     public LoginInvalidoException() {
-
+        super("Login invalido");
     }
 
-  public String getMensagem(){
-    return "Login Invalido.";
-  }
+
 }

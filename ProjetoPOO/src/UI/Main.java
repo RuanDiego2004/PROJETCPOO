@@ -1,17 +1,15 @@
 package UI;
 
-import Dados.RepositorioMotoristaArquivo;
 import Negocio.*;
 import Negocio.Basicas.*;
 import Negocio.Fachada;
 
-import java.security.spec.ECField;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
         Fachada fachada = new Fachada();
         Cidade cidadeAtual = null;
         Cliente clienteAtivo = null;
@@ -37,7 +35,7 @@ public class Main {
                 fachada.adicionarCidade(new Cidade(nome));
                 System.out.println("Cidade cadastrada.");
             }catch (CidadeJaExisteException e){
-                System.out.println(e.getMensagem());
+                System.out.println(e.getMessage());
             }
         }
         break;
@@ -92,7 +90,7 @@ public class Main {
                                 try {
                                     clienteAtivo = fachada.autenticarCliente(cpf, senha);
                                 }catch (LoginInvalidoException e){
-                                    System.out.println(e.getMensagem());
+                                    System.out.println(e.getMessage());
                                     continue;
                                 }
 
@@ -202,7 +200,7 @@ public class Main {
                                 try {
                                     motoristaAtivo = fachada.autenticarMotorista(cnh, senha);
                                 }catch (LoginInvalidoException e){
-                                    e.getMensagem();
+                                    e.getMessage();
                                     continue;
                                 }
                                 System.out.println("BEM VINDO " + motoristaAtivo.getNome().toUpperCase());
@@ -262,11 +260,10 @@ public class Main {
                                 String cor = scanner.nextLine();
                                 try {
                                     fachada.adicionarMotorista(nome, cpf, idade, sexo, cnh, new Veiculo(placa, tipoVeiculo, cor, modelo), senha);
-                                } catch (CNHJaUtilizadaException e) {
-                                    e.getMensagem();
-                                } catch (CPFJaUtilizadoException e){
-                                    e.getMensagem();
+                                } catch (Exception e) {
+                                    System.out.println(e.getMessage());
                                 }
+
                                 System.out.println("Motorista cadastrado com sucesso!");
 
                                 break;

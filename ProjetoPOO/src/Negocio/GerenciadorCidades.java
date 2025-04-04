@@ -13,9 +13,9 @@ public class GerenciadorCidades {
         repositorio = new RepositorioCidadesArquivo();
     }
 
-    public void adicionarCidade(Cidade cidade) throws EntidadeNaoExisteException {
+    public void adicionarCidade(Cidade cidade) throws CidadeJaExisteException {
         if(repositorio.buscarPorNome(cidade.nome) != null) {
-            throw new EntidadeNaoExisteException("Já existe uma cidade com este nome.");
+            throw new CidadeJaExisteException();
         }
         repositorio.adicionar(cidade);
     }

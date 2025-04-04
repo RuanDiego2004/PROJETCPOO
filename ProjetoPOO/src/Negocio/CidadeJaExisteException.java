@@ -1,12 +1,10 @@
-package Negocio.Basicas;
+package Negocio;
 
 public class CidadeJaExisteException extends RuntimeException {
     public CidadeJaExisteException(){
+        super("Cidade ja existe");
+    }
 
-    }
-    public String getMensagem(){
-        return "Cidade ja existe";
-    }
 
 
 

@@ -1,7 +1,7 @@
 package Dados;
 
 import Negocio.Basicas.Cidade;
-import Negocio.EntidadeJaExisteException;
+import Negocio.CidadeJaExisteException;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -17,7 +17,7 @@ public class RepositorioCidadesArquivo implements IRepositorioCidades {
     public RepositorioCidadesArquivo() {cidades = carregar();}
 
     @Override
-    public void adicionar(Cidade cidade) throws EntidadeJaExisteException {
+    public void adicionar(Cidade cidade) {
         cidades.add(cidade);
         salvar();
     }

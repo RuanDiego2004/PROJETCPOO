@@ -2,10 +2,8 @@ package Negocio;
 
 public class CNHJaUtilizadaException extends RuntimeException {
     public CNHJaUtilizadaException() {
-        super();
+        super("Esta CNH ja foi utilizada.");
     }
 
-    public String getMensagem(){
-        return "Esta CNH ja foi utilizada.";
-    }
+
 }

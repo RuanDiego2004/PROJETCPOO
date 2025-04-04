@@ -3,7 +3,6 @@ package Negocio;
 import Negocio.Basicas.*;
 
 import java.util.List;
-import java.util.Objects;
 
 public class Fachada {
     GerenciadorCidades gerenciadorCidades ;

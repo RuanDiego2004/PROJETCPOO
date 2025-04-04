@@ -2,10 +2,8 @@ package Negocio;
 
 public class CPFJaUtilizadoException extends RuntimeException {
     public CPFJaUtilizadoException() {
-        super();
+        super("Este CPF ja foi utilizado.");
     }
 
-    public String getMensagem(){
-        return "Este CPF ja foi utilizado.";
-    }
+
 }
