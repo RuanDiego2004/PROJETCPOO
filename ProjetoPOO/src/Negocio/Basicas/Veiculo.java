@@ -25,12 +25,12 @@ public class Veiculo implements Serializable {
 
     @Override
     public String toString() {
-        return "Veiculo{" +
-                "placa='" + placa + '\'' +
-                ", tipo=" + tipo +
-                ", cor='" + cor + '\'' +
-                ", modelo='" + modelo + '\'' +
-                '}';
+        return  "( " +
+                "Placa: " + placa +
+                " Tipo: " + tipo +
+                " Cor: " + cor +
+                " Modelo: " + modelo +
+                " )";
     }
 
 }

@@ -40,16 +40,19 @@ public class Viagem implements Serializable {
 
     @Override
     public String toString() {
-        return "Viagem{" +
-                "cidade=" + cidade +
-                ", partida=" + partida +
-                ", chegada=" + chegada +
-                ", dataCorrida=" + dataCorrida +
-                ", motorista=" + motorista +
-                ", cliente=" + cliente +
-                ", tipoDeViagem=" + tipoDeViagem +
-                ", distancia=" + distancia +
-                ", valor=" + valor +
-                '}';
+        return String.format(
+                "------------------- Viagem ------------------------ %n" +
+                "Passageiro: %n" + cliente + "%n" +
+                "Motorista: %n" + motorista + "%n" +
+                "Cidade: " + cidade + "%n" +
+                "Partida: " + partida + "%n" +
+                "Chegada: " + chegada + "%n" +
+                "Data da Corrida: " + dataCorrida.toLocalDate()+ " às " + dataCorrida.getHour()+ "." + dataCorrida.getMinute()+ "." + dataCorrida.getSecond()+ "%n" +
+                "Tipo De Viagem: " + tipoDeViagem + "%n" +
+                "Distancia: %d m %n"+
+                "Valor: R$ %.2f%n",distancia,valor
+
+        );
+
     }
 }

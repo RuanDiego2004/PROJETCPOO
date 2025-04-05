@@ -21,4 +21,5 @@ public class Cliente extends Pessoa {
     public List<FormaDePagamento> getFormasDePagamento() {
         return formasDePagamento;
     }
+
 }

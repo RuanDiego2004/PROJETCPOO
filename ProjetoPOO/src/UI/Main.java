@@ -94,7 +94,7 @@ public class Main {
                                     continue;
                                 }
 
-                                System.out.println("BEM VINDO " + clienteAtivo.getNome().toUpperCase());
+                                System.out.println("\033[42;30m        BEM VINDO " + clienteAtivo.getNome().toUpperCase() + "        \033[0m");
                                 System.out.println("Qual o tipo de Viagem Deseja Fazer?(Passageiro / Entrega)");
                                 String tipoDeViagem = scanner.nextLine().toUpperCase();
                                 TipoDeViagem tipoViagem;

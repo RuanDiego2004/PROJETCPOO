@@ -31,14 +31,13 @@ public class Motorista extends Pessoa {
     @Override
     public String toString() {
 
-        return "Motorista{"+
-                "nome='" + getNome() + '\'' +
-                 '\'' +
-                ", idade=" + getIdade() +
-                ", sexo='" + getSexo() + '\'' +
-                ", avaliacao=" + getAvaliacao() +
-                '\'' +
-                ", veiculo=" + veiculo +
-                '}';
+        return String.format(
+                "Nome: %s%n" +
+                "Idade: %d%n" +
+                "Sexo: %s%n" +
+                "Avaliacao: %.2f%n" +
+                "Veiculo: " + veiculo + "%n", getNome(),getIdade(),getSexo(),getAvaliacao()
+
+        );
     }
 }

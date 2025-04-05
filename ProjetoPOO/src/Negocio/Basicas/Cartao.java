@@ -8,7 +8,7 @@ public class Cartao extends FormaDePagamento{
     private double limite;
     private double limitediposnivel;
 
-    public Cartao(String numero, int senha, double limite,String tipo) {
+    public Cartao(String numero, int senha, double limite) {
         super("Cartão de Credito");
         this.numero = numero;
         this.senha = senha;

@@ -12,7 +12,7 @@ public abstract class Pessoa implements Serializable {
     private int idade;
     private String sexo;
     private double avaliacao;
-    private String senha = "...";
+    private String senha;
 
 
 
@@ -49,11 +49,12 @@ public abstract class Pessoa implements Serializable {
 
     @Override
     public String toString() {
-        return "Pessoa{" +
-                "nome='" + nome + '\'' + '\'' +
-                ", idade=" + idade +
-                ", sexo='" + sexo + '\'' +
-                ", avaliacao=" + avaliacao +
-                '}';
+        return String.format(
+                "Nome: %s%n"+
+                "Idade: %d%n"+
+                "Sexo: %s%n"+
+                "Avaliação: %.2f%n",
+                getNome(), getIdade(), getSexo(), getAvaliacao()
+                );
     }
 }

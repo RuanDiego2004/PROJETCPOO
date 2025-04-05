@@ -14,4 +14,11 @@ public class Local implements Serializable {
         this.endereco = endereco;
     }
 
+    @Override
+    public String toString() {
+        return
+                "(" + nome +
+                " / Endereco: " + endereco  +
+                ')';
+    }
 }
