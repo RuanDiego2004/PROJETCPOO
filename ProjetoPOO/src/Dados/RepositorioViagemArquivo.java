@@ -1,6 +1,8 @@
 package Dados;
 
 import Negocio.Basicas.Cidade;
+import Negocio.Basicas.Cliente;
+import Negocio.Basicas.Motorista;
 import Negocio.Basicas.Viagem;
 
 import java.io.FileInputStream;
@@ -51,10 +53,34 @@ public class RepositorioViagemArquivo implements IRepositorioViagem{
             return new ArrayList<Viagem>();
         }
     }
+    @Override
+    public List<Viagem> buscarPorCliente(Cliente cliente){
+        List<Viagem> temp = new ArrayList<Viagem>();
+        for (Viagem v : viagens) {
+            if (v.getCliente().getCpf().equals(cliente.getCpf())) {
+                temp.add(v);
+            }
+        }
+        if(temp.isEmpty()){
+            return null;
+        }
+        return temp;
 
+    }
+    @Override
+    public List<Viagem> buscarPorMotorista(Motorista motorista){
+        List<Viagem> temp = new ArrayList<Viagem>();
+        for (Viagem v : viagens) {
+            if (v.getMotorista().getCpf().equals(motorista.getCpf())) {
+                temp.add(v);
+            }
+        }
+        if(temp.isEmpty()){
+            return null;
+        }
+        return temp;
 
-
-
+    }
 
     @Override
     public List<Viagem> listarViagens() {

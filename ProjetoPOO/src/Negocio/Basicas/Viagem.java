@@ -38,6 +38,10 @@ public class Viagem implements Serializable {
     }
 
 
+    public Cliente getCliente() { return cliente; }
+
+    public Motorista getMotorista() { return motorista; }
+
     @Override
     public String toString() {
         return String.format(

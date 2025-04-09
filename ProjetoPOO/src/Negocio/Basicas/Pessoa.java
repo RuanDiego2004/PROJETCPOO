@@ -57,4 +57,17 @@ public abstract class Pessoa implements Serializable {
                 getNome(), getIdade(), getSexo(), getAvaliacao()
                 );
     }
+    public String toString(int tabela) {
+        return String.format(
+                "Nome: %s%n"+
+                "Idade: %d%n"+
+                "Cpf: %s%n"  +
+                "Senha: %s%n"  +
+                "Sexo: %s%n"+
+                "Avaliação: %.2f%n",
+                getNome(), getIdade(), getSexo(),getCpf(),getSenha(), getAvaliacao()
+
+
+        );
+    }
 }

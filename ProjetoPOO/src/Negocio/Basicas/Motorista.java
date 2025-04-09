@@ -16,15 +16,16 @@ public class Motorista extends Pessoa {
         super(nome, cpf, idade, sexo, senha);
         this.cnh = cnh;
         this.veiculo = veiculo;
-        this.disponibilidade = TipoDisponibilidade.DISPONIVEL;
+        this.disponibilidade = TipoDisponibilidade.INDISPONIVEL;
     }
 
     public Veiculo getVeiculo() {
         return veiculo;
     }
 
-
     public String getCnh() { return cnh; }
+
+    public void setDisponibilidade(TipoDisponibilidade disponibilidade) { this.disponibilidade = disponibilidade; }
 
     public TipoDisponibilidade getDisponibiliade() { return disponibilidade;}
 
@@ -37,6 +38,22 @@ public class Motorista extends Pessoa {
                 "Sexo: %s%n" +
                 "Avaliacao: %.2f%n" +
                 "Veiculo: " + veiculo + "%n", getNome(),getIdade(),getSexo(),getAvaliacao()
+
+        );
+    }
+
+    public String toString(int tabela) {
+        return String.format(
+                        "Nome: %s%n" +
+                        "Idade: %d%n" +
+                        "Sexo: %s%n" +
+                        "Cpf: %s%n"  +
+                        "CNH: %s%n"  +
+                        "Senha: %s%n"  +
+                        "Disponibilidade: " + disponibilidade + "%n"+
+                        "Avaliacao: %.2f%n" +
+                        "Veiculo: " + veiculo + "%n", getNome(),getIdade(),getSexo(),getCpf(),getCnh(),getSenha(),getAvaliacao()
+
 
         );
     }
