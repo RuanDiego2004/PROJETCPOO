@@ -30,5 +30,5 @@ public class GerenciadorMotorista {
     public List<Motorista> listarMotoristas()  {
       return repositorio.listarMotoristas();
     }
-
+    public void avaliarViagem(double a,Motorista motorista) {  repositorio.avaliarViagem(a, motorista);  }
 }

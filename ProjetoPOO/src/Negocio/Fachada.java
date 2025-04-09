@@ -36,8 +36,6 @@ public class Fachada {
        return gerenciadorViagem.buscarPorCidade(cidade);
    }
 
-
-
     // fim viagem
 
     // inicio cidade
@@ -73,7 +71,7 @@ public class Fachada {
     public Cliente buscarClientePorCpf(String Cpf){
         return gerenciadorCliente.buscarPorCpf(Cpf);
     }
-
+    public void avaliarViagemCliente(double m,Cliente cliente) {  gerenciadorCliente.avaliarViagem(m,cliente); }
     // fim cliente
 
     //inicio motorista
@@ -81,6 +79,8 @@ public class Fachada {
     public void adicionarMotorista(String nome, String cpf, int  idade , String sexo, String CNH, Veiculo veiculo , String senha) throws Exception {
         gerenciadorMotorista.adicionarMotorista(nome, cpf, idade, sexo, CNH, veiculo, senha);
     }
+
+    public void avaliarViagemMotorista(double a,Motorista motorista) {  gerenciadorMotorista.avaliarViagem(a,motorista); }
 
     public void validarPagamento(Cliente cliente,String forma){
         gerenciadorCliente.validarPagamento(cliente,forma);

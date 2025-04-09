@@ -1,5 +1,6 @@
 package Dados;
 
+import Negocio.Basicas.Cliente;
 import Negocio.Basicas.Motorista;
 
 import java.io.FileInputStream;
@@ -60,5 +61,14 @@ public class RepositorioMotoristaArquivo implements IRepositorioMotorista{
             return new ArrayList<Motorista>();
         }
     }
-
+    @Override
+    public void avaliarViagem(double a,Motorista motorista) {
+        for (Motorista m : motoristas) {
+            if (motorista.getCpf().equals(m.getCpf())) {
+                double r = (m.getAvaliacao() + a )/ 2;
+                m.setAvaliacao(r);
+            }
+        }
+        salvar();
+    }
 }

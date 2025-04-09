@@ -8,5 +8,5 @@ public interface IRepositorioMotorista {
     Motorista buscarPorCNH(String CNH);
     List<Motorista> listarMotoristas();
     Motorista buscarPorCPF(String cpf);
-
+    void avaliarViagem(double a,Motorista motorista);
 }

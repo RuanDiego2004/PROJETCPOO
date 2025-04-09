@@ -47,6 +47,10 @@ public abstract class Pessoa implements Serializable {
         return senha;
     }
 
+    public void setAvaliacao(double avaliacao) {
+        this.avaliacao = avaliacao;
+    }
+
     @Override
     public String toString() {
         return String.format(

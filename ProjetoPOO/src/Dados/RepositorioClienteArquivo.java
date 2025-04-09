@@ -51,4 +51,15 @@ public class RepositorioClienteArquivo implements IRepositorioCliente {
             e.printStackTrace();
         }
     }
+    @Override
+    public void avaliarViagem(double m,Cliente cliente) {
+        for (Cliente c : clientes) {
+            if (cliente.getCpf().equals(c.getCpf())) {
+                double r = (c.getAvaliacao() + m )/ 2;
+                c.setAvaliacao(r);
+            }
+        }
+        salvar();
+    }
+
 }

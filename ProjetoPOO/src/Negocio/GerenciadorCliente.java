@@ -20,6 +20,8 @@ public class GerenciadorCliente {
         Cliente cliente = new Cliente(nome, cpf, idade, sexo, senha);
         repositorio.adicionar(cliente);
     }
+    public void avaliarViagem(double m,Cliente cliente) {  repositorio.avaliarViagem(m,cliente); }
+
     public Cliente buscarPorCpf(String cpf) {
         return repositorio.buscarPorCpf(cpf);
     }

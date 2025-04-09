@@ -343,6 +343,15 @@ public class Main {
                         System.out.println(v.toString());
                     }
 
+
+
+                    System.out.println("Avalie o Cliente");
+                    double ava = Integer.parseInt(scanner.nextLine());
+                    fachada.avaliarViagemCliente(ava,clienteAtivo);
+                    System.out.println("Avalie o motorista");
+                    ava = Integer.parseInt(scanner.nextLine());
+                    fachada.avaliarViagemMotorista(ava,motoristaAtivo);
+
                     break;
             }
 
