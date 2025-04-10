@@ -9,14 +9,13 @@ public class Motorista extends Pessoa {
     private static final long serialVersionUID = 8894725064842758606L;
     private String cnh;
     private Veiculo veiculo;
-    private TipoDisponibilidade disponibilidade;
-//Renato testando
+
 
     public Motorista(String nome, String cpf, int idade, String sexo, String cnh, Veiculo veiculo, String senha) {
         super(nome, cpf, idade, sexo, senha);
         this.cnh = cnh;
         this.veiculo = veiculo;
-        this.disponibilidade = TipoDisponibilidade.INDISPONIVEL;
+
     }
 
     public Veiculo getVeiculo() {
@@ -25,9 +24,7 @@ public class Motorista extends Pessoa {
 
     public String getCnh() { return cnh; }
 
-    public void setDisponibilidade(TipoDisponibilidade disponibilidade) { this.disponibilidade = disponibilidade; }
 
-    public TipoDisponibilidade getDisponibiliade() { return disponibilidade;}
 
     @Override
     public String toString() {

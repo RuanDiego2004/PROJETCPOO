@@ -5,6 +5,8 @@ import Negocio.Basicas.*;
 import Negocio.Fachada;
 
 import java.lang.ref.Cleaner;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.SortedMap;
 
@@ -16,6 +18,7 @@ public class Main {
         Cidade cidadeAtual = null;
         Cliente clienteAtivo = null;
         Motorista motoristaAtivo = null;
+        List<Motorista> motoristasProcurandoCorrida = new ArrayList<Motorista>();
 
 
         // Declarações de Auxiliares
@@ -69,8 +72,12 @@ public class Main {
             System.out.println("4 - Ajuda");
             opcao = Integer.parseInt(scanner.nextLine());
             opcaomenor = 0;
+            clienteAtivo = null;
+            motoristaAtivo = null;
+
             switch(opcao){
                 case 1:
+
 
                 break;
                 case 2:
@@ -131,18 +138,56 @@ public class Main {
                                             System.out.println("Nenhum motorista disponivel para essa viagem no momento.");
                                             System.out.println("Tente novamente mais tarde.");
                                         }else {
+                                            try{
                                             System.out.println("Origem:");
                                             String nomeOrigem = scanner.nextLine();
                                             String enderecoOrigem = scanner.nextLine();
                                             System.out.println("Destino");
                                             String nomeDestino = scanner.nextLine();
                                             String enderecoDestino = scanner.nextLine();
-                                            FormaDePagamento fdp = new FormaDePagamento("AAAA");
-                                            fachada.adicionarViagem(new Viagem(cidadeAtual, new Local(nomeOrigem, enderecoOrigem), new Local(nomeDestino, enderecoDestino), motorista_aux, clienteAtivo, tipoViagem,fdp));
+
+                                            // inicio forma de pagamento
+                                            System.out.println("Escolha a forma de pagamento");
+                                            System.out.println("Dinheiro,Pix ou Cartao");
+                                            String formaDePagamento = scanner.nextLine();
+                                            fachada.validarFormaDePagamento(formaDePagamento);
+                                            // validou se é dinheiro, pix ou cartao
+
+
+                                            Viagem viagemTemp = new Viagem(cidadeAtual, new Local(nomeOrigem, enderecoOrigem), new Local(nomeDestino, enderecoDestino), motorista_aux, clienteAtivo, tipoViagem,new FormaDePagamento(formaDePagamento));
+                                            // criou a viagem
+
+                                            // se forma de pagamento for cartão
+                                            if( formaDePagamento.equalsIgnoreCase("Cartao"))
+                                            {
+                                                // cliente nao tem cartao
+                                                if (clienteAtivo.getCartoes().isEmpty()) {
+                                                    throw new ClienteNaoTemCartaoException();
+                                                }
+                                                // validar cartao do cliente
+                                                else {
+                                                    System.out.println("Qual o numero do cartão que deseja usar?");
+                                                    int numeroCartao = Integer.parseInt(scanner.nextLine());
+                                                    Cartao tempCartao = fachada.verificarNumCartao(clienteAtivo, numeroCartao);
+                                                    // cartão validado, verificar se tem saldo
+                                                    fachada.validarPagamento(tempCartao,viagemTemp.getValor());
+                                                }
+                                            }
+                                            // se todas verificacoes foram bem
+                                                // Dinheiro pix ou cartao
+                                                    // se for cartão se cliente tem cartão
+                                                        //se tiver cartão se tem limite suficiente
+                                            //a viagem é adicionada, se não, graças as excecoes nao é adicionada.
+                                            fachada.adicionarViagem(viagemTemp);
                                             System.out.println("Pedido de viagem feito, aguarde o motorista");
                                             System.out.println();
                                             System.out.println();
+                                        }catch(Exception e){
+                                                System.out.println(e.getMessage());
+                                            }
+
                                         }
+
                                     } else if (op == 2) {
                                         System.out.println("Suas Viagens: ");
                                         for (Viagem v : fachada.listarViagemCLiente(clienteAtivo)) {
@@ -211,7 +256,10 @@ public class Main {
                         System.out.println("2 - Buscar Motorista");
                         System.out.println("3 - Listar Motorista");
                         System.out.println("4 - Cadastrar Motorista");
-                        System.out.println("5 - Voltar");
+                        System.out.println("5 - Fazer corrida");
+                        System.out.println("6 - Cancelar procura por corrida");
+                        System.out.println("7 - Voltar");
+
                         opcaomenor = Integer.parseInt(scanner.nextLine());
                         switch(opcaomenor){
                             case 1:
@@ -225,40 +273,7 @@ public class Main {
                                     e.getMessage();
                                     continue;
                                 }
-                                System.out.println("\033[42;30m        BEM VINDO " + motoristaAtivo.getNome().toUpperCase() + "        \033[0m");
-                                System.out.println();
-                                int op = 0;
-                                while (op != -1) {
-                                    System.out.println("1 - Alterar disponibilidade");
-                                    System.out.println("2 - Listar Viagens");
-                                    System.out.println("3 - Listar Viagens");
-                                    op = Integer.parseInt(scanner.nextLine());
-                                    if(op == 1){
-                                        System.out.println("Escolha:");
-                                        System.out.println("\033[44;30m DISPONIVEL \033[0m" + "\033[41;30m INDISPONIVEL \033[0m");
-                                        String tipoDisp = scanner.nextLine().toUpperCase();
-                                        TipoDisponibilidade disp;
-                                        try {
-                                            disp = TipoDisponibilidade.valueOf(tipoDisp);
-                                        }catch (IllegalArgumentException e) {
-                                            System.out.println("Opção inválida! Use ( DISPONIVEL / INDISPONIVEL )");
-                                            continue;
-                                        }
-                                        motoristaAtivo.setDisponibilidade(disp);
-                                        System.out.println("Agora você está:" +"\033[35m " +  motoristaAtivo.getDisponibiliade() + "\033[0m");
 
-                                    } else if (op == 2) {
-                                        System.out.println("Suas Viagens: ");
-                                        for (Viagem v : fachada.listarViagemMotorista(motoristaAtivo)) {
-                                            System.out.println(v.toString());
-                                        }
-                                    } else if (op == 3) {
-                                        op = -1;
-                                    } else{
-                                        System.out.println("Opção inválida!");
-                                        System.out.println();
-                                    }
-                                }
                                 break;
 
                             case 2:
@@ -322,6 +337,42 @@ public class Main {
 
                                 break;
                             case 5:
+                                if(motoristaAtivo == null) {
+                                    System.out.println("Faça login para fazer uma corrida!");
+                                }
+
+                                // após logado
+                                else{
+                                    if(motoristasProcurandoCorrida.contains(motoristaAtivo)){
+                                        System.out.println("Motorista " +motoristaAtivo.getNome() +" ja está procurando corrida.");
+                                    }
+                                    else{
+                                        motoristasProcurandoCorrida.add(motoristaAtivo);
+                                        System.out.println("Motorista " +motoristaAtivo.getNome() +" adicionado com sucesso!");
+                                    }
+                                }
+
+                            //fim fazer corrida
+                            break;
+
+                            case 6:
+                                if(motoristaAtivo == null) {
+                                    System.out.println("Faca login para fazer uma corrida!");
+                                }
+                                // após logado
+                                else{
+                                    // se motorista estiver na lista
+                                    if(motoristasProcurandoCorrida.contains(motoristaAtivo)){
+                                        motoristasProcurandoCorrida.remove(motoristaAtivo);
+                                        System.out.println("Motorista " +motoristaAtivo.getNome() +" nao está mais procurando corrida!");
+                                    }
+                                    else{
+                                        // se motorista não estiver na lista
+                                        System.out.println("Motorista não está procurando corrida.");
+                                    }
+                                }
+                            break;
+                            case 7:
                                 opcaomenor = -1;
                                 break;
                         }
@@ -356,7 +407,9 @@ public class Main {
             }
 
 
-
+            for(Motorista m : motoristasProcurandoCorrida) {
+                System.out.println(m.toString());
+            }
         }
 
     }

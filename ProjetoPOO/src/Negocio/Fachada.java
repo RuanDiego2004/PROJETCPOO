@@ -47,8 +47,23 @@ public class Fachada {
             e.getMessage();
         }
     }
+// forma de pagamento
 
-//    public String validarPagamento(String tipoPagamento) throws LimiteInsuficienteException {}
+    public void validarFormaDePagamento(String tipo) throws FormaDePagamentoInvalidoException {
+        gerenciadorCliente.validarFormaDePagamento(tipo);
+    }
+
+    public void validarPagamento(Cartao cartao,double valor) throws LimiteInsuficienteException {
+        gerenciadorCliente.validarPagamento(cartao,valor);
+    }
+
+    public Cartao verificarNumCartao (Cliente cliente,int num) throws CartaoNaoEncontradoException{
+        return gerenciadorCliente.verificarNumCartao(cliente,num);
+    }
+
+// Fim forma de pagamento
+
+
 
     public List<Cidade> listarCidade(){
         return gerenciadorCidades.ListarCidades();
@@ -82,13 +97,7 @@ public class Fachada {
 
     public void avaliarViagemMotorista(double a,Motorista motorista) {  gerenciadorMotorista.avaliarViagem(a,motorista); }
 
-    public void validarPagamento(Cliente cliente,String forma){
-        gerenciadorCliente.validarPagamento(cliente,forma);
-    }
 
-    public void validarPagamento(Cliente cliente,String forma,String numero,double valor) throws Exception {
-        gerenciadorCliente.validarPagamento(cliente,forma,numero, valor);
-    }
 
     public List<Motorista> listarMotorista(){ return gerenciadorMotorista.listarMotoristas(); }
 

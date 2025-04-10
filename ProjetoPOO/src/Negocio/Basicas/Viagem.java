@@ -59,4 +59,8 @@ public class Viagem implements Serializable {
         );
 
     }
+
+    public double getValor() {
+        return valor;
+    }
 }

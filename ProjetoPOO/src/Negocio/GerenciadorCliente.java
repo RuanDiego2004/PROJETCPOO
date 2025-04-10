@@ -4,7 +4,6 @@ import Dados.IRepositorioCliente;
 import Dados.RepositorioClienteArquivo;
 import Negocio.Basicas.Cartao;
 import Negocio.Basicas.Cliente;
-import Negocio.Basicas.FormaDePagamento;
 
 import java.util.List;
 
@@ -29,29 +28,34 @@ public class GerenciadorCliente {
         return repositorio.listarClientes();
     }
 
-    // talvez validar forma de pagamento seja aqui??
-    public void validarPagamento(Cliente cliente,String forma) {
+    // Forma de pagamento
 
+
+    public void validarPagamento(Cartao cartao,double valor) throws LimiteInsuficienteException{
+        if(cartao.getLimitediposnivel()< valor){
+            throw new LimiteInsuficienteException();
+        }
     }
 
-    public void validarPagamento(Cliente cliente,String forma,String numero,double valor) throws Exception{
-        Cartao cartao= null;
-        for(FormaDePagamento fdp : cliente.getFormasDePagamento()){
-            //teste se for Cartão
-            if(fdp.getTipo().equals(forma)){
-                //Teste se tem numero
-                cartao= (Cartao) fdp;
-                if(cartao.getNumero().equals(numero)){
-                    // Teste se tem limite
-                    if(cartao.getLimitediposnivel() >= valor){
-                        //tem limite
-                        cartao.setLimitediposnivel(cartao.getLimitediposnivel() - valor); //descontando limite
-                    }
-                }
+    public void validarFormaDePagamento(String tipo) throws FormaDePagamentoInvalidoException {
+        if(tipo.equalsIgnoreCase("Dinheiro") || tipo.equalsIgnoreCase("Pix") ||  tipo.equalsIgnoreCase("Cartao")){
+            return;
+        }else { throw new FormaDePagamentoInvalidoException(); }
+    }
+
+    public Cartao verificarNumCartao (Cliente cliente,int num) throws CartaoNaoEncontradoException{
+        Cartao cartao = null;
+        boolean achou = false;
+        for(Cartao c : cliente.getCartoes()){
+            if( c.numero == num){
+                cartao = c;
+                achou = true;
             }
         }
-
+        if(achou == false){
+            throw new CartaoNaoEncontradoException();
+        }
+        return cartao;
     }
-    // oq ele retornaria se nao encontrasse cartão?
 }
 

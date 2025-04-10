@@ -3,12 +3,12 @@ package Negocio.Basicas;
 import java.io.Serializable;
 
 public class Cartao extends FormaDePagamento{
-    public String numero;
+    public int numero;
     private int senha;
     private double limite;
     private double limitediposnivel;
 
-    public Cartao(String numero, int senha, double limite) {
+    public Cartao(int numero, int senha, double limite) {
         super("Cartão de Credito");
         this.numero = numero;
         this.senha = senha;
@@ -20,7 +20,7 @@ public class Cartao extends FormaDePagamento{
         return limite;
     }
 
-    public String getNumero() {
+    public int getNumero() {
         return numero;
     }
 

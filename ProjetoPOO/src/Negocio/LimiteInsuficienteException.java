@@ -1,7 +1,7 @@
 package Negocio;
 
 public class LimiteInsuficienteException extends RuntimeException {
-    public LimiteInsuficienteException(String message) {
+    public LimiteInsuficienteException() {
         super("Erro: cartão não tem limite o suficiente.");
     }
 }

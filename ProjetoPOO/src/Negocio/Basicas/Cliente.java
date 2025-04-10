@@ -7,19 +7,25 @@ import java.util.List;
 public class Cliente extends Pessoa {
     @Serial
     private static final long serialVersionUID = 2009502615378334785L;
-    public List<FormaDePagamento> formasDePagamento;
+    public List<Cartao> cartoes;
     //
 
 
     public Cliente(String nome, String cpf, int idade, String sexo, String senha) {
         super(nome, cpf, idade, sexo, senha);
-        formasDePagamento = new ArrayList<FormaDePagamento>();
-        formasDePagamento.add(new FormaDePagamento("Dinheiro"));
-        formasDePagamento.add(new FormaDePagamento("Pix"));
+        cartoes = new ArrayList<Cartao>();
+
     }
 
-    public List<FormaDePagamento> getFormasDePagamento() {
-        return formasDePagamento;
+    public List<Cartao> getCartoes() {
+        return cartoes;
+    }
+
+    public void ListarNumCartoes() {
+        for(Cartao c : cartoes){
+            System.out.println(c.numero);
+            System.out.println(c.getLimitediposnivel());
+        }
     }
 
 }
