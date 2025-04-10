@@ -29,11 +29,6 @@ public class GerenciadorViagem {
         return repositorio.buscarPorCidade(cidade);
     }
 
-    public List<Viagem> buscarPorCliente(Cliente cliente) { return repositorio.buscarPorCliente(cliente); }
-
-    public List<Viagem> buscarPorMotorista(Motorista motorista) { return repositorio.buscarPorMotorista(motorista); }
-
-
 
 
 

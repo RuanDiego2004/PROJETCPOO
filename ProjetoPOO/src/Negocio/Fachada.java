@@ -25,12 +25,6 @@ public class Fachada {
     public List<Viagem> listarViagem(){
         return gerenciadorViagem.listar();
     }
-    public List<Viagem> listarViagemCLiente(Cliente cliente) {
-        return gerenciadorViagem.buscarPorCliente(cliente);
-    }
-    public List<Viagem> listarViagemMotorista(Motorista motorista) {
-        return gerenciadorViagem.buscarPorMotorista(motorista);
-    }
 
     public List<Viagem> listarPorCidade(Cidade cidade){
        return gerenciadorViagem.buscarPorCidade(cidade);

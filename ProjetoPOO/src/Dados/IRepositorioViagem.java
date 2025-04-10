@@ -9,7 +9,5 @@ import java.util.List;
 public interface IRepositorioViagem {
      public void adicionar(Viagem cidade);
     List<Viagem> buscarPorCidade(Cidade cidade);
-    List<Viagem> buscarPorCliente(Cliente cliente);
-    List<Viagem> buscarPorMotorista(Motorista motorista);
     List<Viagem> listarViagens();
 }

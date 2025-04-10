@@ -231,6 +231,10 @@ public class Main {
                                             System.out.println("Pedido de viagem feito, aguarde o motorista");
                                             System.out.println();
 
+                                            System.out.println("Avalie o motorista");
+                                            double ava = Double.parseDouble(scanner.nextLine());
+                                            fachada.avaliarViagemMotorista(ava,motoristaCorrida);
+
                                         } catch (Exception e) {
                                             System.out.println(e.getMessage());
                                         }
@@ -396,16 +400,7 @@ public class Main {
                     System.out.println("Avalie o Cliente");
                     double ava = Integer.parseInt(scanner.nextLine());
                     fachada.avaliarViagemCliente(ava,clienteAtivo);
-                    System.out.println("Avalie o motorista");
-                    ava = Integer.parseInt(scanner.nextLine());
-                    fachada.avaliarViagemMotorista(ava,motoristaAtivo);
-
                     break;
-            }
-
-
-            for(Motorista m : motoristasProcurandoCorrida) {
-                System.out.println(m.toString());
             }
         }
 
