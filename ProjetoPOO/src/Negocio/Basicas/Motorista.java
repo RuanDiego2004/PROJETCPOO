@@ -47,7 +47,6 @@ public class Motorista extends Pessoa {
                         "Cpf: %s%n"  +
                         "CNH: %s%n"  +
                         "Senha: %s%n"  +
-                        "Disponibilidade: " + disponibilidade + "%n"+
                         "Avaliacao: %.2f%n" +
                         "Veiculo: " + veiculo + "%n", getNome(),getIdade(),getSexo(),getCpf(),getCnh(),getSenha(),getAvaliacao()
 
