@@ -1,6 +1,8 @@
 package Dados;
 
+import Negocio.Basicas.Cartao;
 import Negocio.Basicas.Cliente;
+import Negocio.CartaoJaCadastradoException;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -33,6 +35,8 @@ public class RepositorioClienteArquivo implements IRepositorioCliente {
         return null;
     }
 
+
+
     @Override
     public List<Cliente> listarClientes() { return clientes; }
 
@@ -51,6 +55,7 @@ public class RepositorioClienteArquivo implements IRepositorioCliente {
             e.printStackTrace();
         }
     }
+
     @Override
     public void avaliarViagem(double m,Cliente cliente) {
         for (Cliente c : clientes) {
@@ -59,6 +64,12 @@ public class RepositorioClienteArquivo implements IRepositorioCliente {
                 c.setAvaliacao(r);
             }
         }
+        salvar();
+    }
+
+    @Override
+    public void adicionarCartao(Cartao cartao, Cliente cliente) {
+        cliente.cartoes.add(cartao);
         salvar();
     }
 

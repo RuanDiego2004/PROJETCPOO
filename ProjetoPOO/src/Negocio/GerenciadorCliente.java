@@ -30,6 +30,14 @@ public class GerenciadorCliente {
 
     // Forma de pagamento
 
+    public void adicionarCartao(Cliente cliente,int numeroCartao,int senhaCartao,double limite) throws CartaoJaCadastradoException {
+        for(Cartao cartao : cliente.getCartoes()){
+            if(cartao.numero == numeroCartao){
+                throw new CartaoJaCadastradoException();
+            }
+        }
+        repositorio.adicionarCartao(new Cartao(numeroCartao,senhaCartao,limite),cliente);
+    }
 
     public void validarPagamento(Cartao cartao,double valor) throws LimiteInsuficienteException{
         if(cartao.getLimitediposnivel()< valor){

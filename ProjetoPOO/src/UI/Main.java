@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.SortedMap;
 
+import static java.lang.System.exit;
+
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -70,6 +72,8 @@ public class Main {
             System.out.println("2 - Cliente");
             System.out.println("3 - Motorista");
             System.out.println("4 - Ajuda");
+            System.out.println("5 - Encerrar programa");
+
             opcao = Integer.parseInt(scanner.nextLine());
             opcaomenor = 0;
             clienteAtivo = null;
@@ -77,8 +81,31 @@ public class Main {
 
             switch(opcao){
                 case 1:
-                    for(Viagem v : fachada.listarViagem()){
-                        System.out.println(v.toString());
+                    while(opcaomenor != -1){
+                        System.out.println("Oque deseja fazer?");
+                        System.out.println("1 - Adicionar cidade");
+                        System.out.println("2 - Listar cidades");
+                        System.out.println("3 - Voltar");
+                        opcaomenor = Integer.parseInt(scanner.nextLine());
+                        switch(opcaomenor){
+                        case 1:
+                            System.out.println("Digite o nome da cidade que deseja cadastrar: ");
+                            String nomeCidade = scanner.nextLine();
+                            try{
+                                fachada.adicionarCidade(new Cidade(nomeCidade));
+                            }catch (CidadeJaExisteException e){
+                                System.out.println(e.getMessage());
+                            }
+                        break;
+                        case 2:
+                            for(Cidade c : fachada.listarCidade()){
+                                System.out.println(c.toString());
+                            }
+                        break;
+                        case 3:
+                            opcaomenor = -1;
+                        break;
+                        }
                     }
 
 
@@ -91,7 +118,8 @@ public class Main {
                         System.out.println("3 - Listar Clientes");
                         System.out.println("4 - Cadastrar Cliente");
                         System.out.println("5 - Fazer Corrida");
-                        System.out.println("6 - Voltar");
+                        System.out.println("6 - Adicionar cartão");
+                        System.out.println("7 - Voltar");
                         opcaomenor = Integer.parseInt(scanner.nextLine());
                         switch(opcaomenor) {
                             case 1:
@@ -243,6 +271,27 @@ public class Main {
                                 }
                                 break;
                             case 6:
+                                if(clienteAtivo == null){
+                                    System.out.println("\033[31mFaça login para adicionar cartão\033[0m");
+                                }
+                                else{
+                                    System.out.println("Digite o numero do cartão");
+                                    int numeroCartao = Integer.parseInt(scanner.nextLine());
+                                    System.out.println("Digite a senha do cartao");
+                                    int senhaCartao = scanner.nextInt();
+
+                                    System.out.println("Digite o limite do cartao");
+                                    double limite = Double.parseDouble(scanner.nextLine());
+
+                                    try{
+                                        fachada.adicionarCartão(clienteAtivo,numeroCartao,senhaCartao,limite);
+                                    }catch(CartaoJaCadastradoException e){
+                                        System.out.println(e.getMessage());
+                                    }
+
+                                }
+                            break;
+                            case 7:
                                 opcaomenor = -1;
                                 break;
                         }
@@ -394,8 +443,10 @@ public class Main {
                     for (Viagem v : fachada.listarViagem()) {
                         System.out.println(v.toString());
                     }
-
-
+                break;
+                case 5:
+                    exit(0);
+                break;
 
 
             }

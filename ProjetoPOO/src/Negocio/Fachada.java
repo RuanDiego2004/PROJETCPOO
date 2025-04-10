@@ -35,12 +35,9 @@ public class Fachada {
     // inicio cidade
 
     public void adicionarCidade(Cidade cidade) throws CidadeJaExisteException  {
-        try {
             gerenciadorCidades.adicionarCidade(cidade);
-        }catch (CidadeJaExisteException e) {
-            e.getMessage();
-        }
     }
+
 // forma de pagamento
 
     public void validarFormaDePagamento(String tipo) throws FormaDePagamentoInvalidoException {
@@ -81,6 +78,11 @@ public class Fachada {
         return gerenciadorCliente.buscarPorCpf(Cpf);
     }
     public void avaliarViagemCliente(double m,Cliente cliente) {  gerenciadorCliente.avaliarViagem(m,cliente); }
+
+    public void adicionarCartão(Cliente cliente,int numeroCartao,int senhaCartao,double limite) throws CartaoJaCadastradoException{
+        gerenciadorCliente.adicionarCartao(cliente,numeroCartao,senhaCartao,limite);
+    }
+
     // fim cliente
 
     //inicio motorista

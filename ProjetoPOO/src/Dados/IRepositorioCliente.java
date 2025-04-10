@@ -8,5 +8,5 @@ public interface IRepositorioCliente {
     Cliente buscarPorCpf(String cpf);
     List<Cliente> listarClientes();
     void avaliarViagem(double m,Cliente cliente);
-
+    void adicionarCartao(Cartao cartao, Cliente cliente);
 }
