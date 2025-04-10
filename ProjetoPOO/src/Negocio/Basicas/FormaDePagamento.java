@@ -1,6 +1,8 @@
 package Negocio.Basicas;
 
-public class FormaDePagamento {
+import java.io.Serializable;
+
+public class FormaDePagamento implements Serializable {
     private String tipo;
 
     public FormaDePagamento(String tipo) {

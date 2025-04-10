@@ -61,6 +61,7 @@ public class RepositorioMotoristaArquivo implements IRepositorioMotorista{
             return new ArrayList<Motorista>();
         }
     }
+
     @Override
     public void avaliarViagem(double a,Motorista motorista) {
         for (Motorista m : motoristas) {

@@ -121,16 +121,8 @@ public class Fachada {
     }
     //fim Autenticadores
 
-    //
-    public Motorista buscarMotoristaDisponivel( TipoVeiculo tipoVeiculo) {
-        List<Motorista> m = listarMotorista();
-        for (Motorista motorista : m) {
-            if(motorista.getVeiculo().getTipo().equals(tipoVeiculo) && motorista.getDisponibiliade().equals(TipoDisponibilidade.DISPONIVEL)) {
-                return motorista;
-            }
-        }
-        return null;
-    }
+
+
 
 
 }

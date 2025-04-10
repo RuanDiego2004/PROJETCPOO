@@ -77,6 +77,9 @@ public class Main {
 
             switch(opcao){
                 case 1:
+                    for(Viagem v : fachada.listarViagem()){
+                        System.out.println(v.toString());
+                    }
 
 
                 break;
@@ -87,7 +90,8 @@ public class Main {
                         System.out.println("2 - Buscar Cliente");
                         System.out.println("3 - Listar Clientes");
                         System.out.println("4 - Cadastrar Cliente");
-                        System.out.println("5 - Voltar");
+                        System.out.println("5 - Fazer Corrida");
+                        System.out.println("6 - Voltar");
                         opcaomenor = Integer.parseInt(scanner.nextLine());
                         switch(opcaomenor) {
                             case 1:
@@ -102,104 +106,6 @@ public class Main {
                                     continue;
                                 }
 
-                                System.out.println("\033[42;30m        BEM VINDO " + clienteAtivo.getNome().toUpperCase() + "        \033[0m");
-                                System.out.println();
-                                int op = 0;
-                                while (op != -1) {
-                                    System.out.println("1 - Pedir Viagem");
-                                    System.out.println("2 - Listar Viagens");
-                                    System.out.println("3 - Sair");
-                                    op = Integer.parseInt(scanner.nextLine());
-                                    if(op == 1){
-                                        System.out.println("Qual o tipo de Viagem Deseja Fazer?(Passageiro / Entrega)");
-                                        String tipoDeViagem = scanner.nextLine().toUpperCase();
-                                        TipoDeViagem tipoViagem;
-                                        try {
-                                            tipoViagem = TipoDeViagem.valueOf(tipoDeViagem);
-                                        }catch (IllegalArgumentException e) {
-                                            System.out.println("Opção inválida! Use Passageiro ou Entrega");
-                                            continue;
-                                        }
-                                        System.out.println("Qual o tipo de Veiculo? (SUV, ECONOMICO, LUXO, MOTOCICLETA) ");
-                                        String tipoDeVeiculo = scanner.nextLine().toUpperCase();
-                                        TipoVeiculo tipoVeiculo;
-                                        try {
-                                            tipoVeiculo = TipoVeiculo.valueOf(tipoDeVeiculo);
-                                        }catch (IllegalArgumentException e) {
-                                            System.out.println("Opção inválida! Use SUV, ECONOMICO, LUXO, MOTOCICLETA");
-                                            continue;
-                                        }
-                                        System.out.println();
-                                        System.out.println("Buscando...");
-                                        System.out.println();
-
-                                        Motorista motorista_aux = fachada.buscarMotoristaDisponivel(tipoVeiculo);
-                                        if(motorista_aux == null){
-                                            System.out.println("Nenhum motorista disponivel para essa viagem no momento.");
-                                            System.out.println("Tente novamente mais tarde.");
-                                        }else {
-                                            try{
-                                            System.out.println("Origem:");
-                                            String nomeOrigem = scanner.nextLine();
-                                            String enderecoOrigem = scanner.nextLine();
-                                            System.out.println("Destino");
-                                            String nomeDestino = scanner.nextLine();
-                                            String enderecoDestino = scanner.nextLine();
-
-                                            // inicio forma de pagamento
-                                            System.out.println("Escolha a forma de pagamento");
-                                            System.out.println("Dinheiro,Pix ou Cartao");
-                                            String formaDePagamento = scanner.nextLine();
-                                            fachada.validarFormaDePagamento(formaDePagamento);
-                                            // validou se é dinheiro, pix ou cartao
-
-
-                                            Viagem viagemTemp = new Viagem(cidadeAtual, new Local(nomeOrigem, enderecoOrigem), new Local(nomeDestino, enderecoDestino), motorista_aux, clienteAtivo, tipoViagem,new FormaDePagamento(formaDePagamento));
-                                            // criou a viagem
-
-                                            // se forma de pagamento for cartão
-                                            if( formaDePagamento.equalsIgnoreCase("Cartao"))
-                                            {
-                                                // cliente nao tem cartao
-                                                if (clienteAtivo.getCartoes().isEmpty()) {
-                                                    throw new ClienteNaoTemCartaoException();
-                                                }
-                                                // validar cartao do cliente
-                                                else {
-                                                    System.out.println("Qual o numero do cartão que deseja usar?");
-                                                    int numeroCartao = Integer.parseInt(scanner.nextLine());
-                                                    Cartao tempCartao = fachada.verificarNumCartao(clienteAtivo, numeroCartao);
-                                                    // cartão validado, verificar se tem saldo
-                                                    fachada.validarPagamento(tempCartao,viagemTemp.getValor());
-                                                }
-                                            }
-                                            // se todas verificacoes foram bem
-                                                // Dinheiro pix ou cartao
-                                                    // se for cartão se cliente tem cartão
-                                                        //se tiver cartão se tem limite suficiente
-                                            //a viagem é adicionada, se não, graças as excecoes nao é adicionada.
-                                            fachada.adicionarViagem(viagemTemp);
-                                            System.out.println("Pedido de viagem feito, aguarde o motorista");
-                                            System.out.println();
-                                            System.out.println();
-                                        }catch(Exception e){
-                                                System.out.println(e.getMessage());
-                                            }
-
-                                        }
-
-                                    } else if (op == 2) {
-                                        System.out.println("Suas Viagens: ");
-                                        for (Viagem v : fachada.listarViagemCLiente(clienteAtivo)) {
-                                            System.out.println(v.toString());
-                                        }
-                                    } else if (op == 3) {
-                                        op = -1;
-                                    } else{
-                                        System.out.println("Opção inválida!");
-                                        System.out.println();
-                                    }
-                                }
                                 break;
 
                             case 2:
@@ -241,7 +147,98 @@ public class Main {
                                 System.out.println("Cliente cadastrado com sucesso!");
                                 break;
 
+
                             case 5:
+                                if(clienteAtivo == null){
+                                    System.out.println("Precisa fazer login para pedir uma corrida.");
+                                }
+                                else {
+
+                                    if (motoristasProcurandoCorrida.isEmpty()) {
+                                        System.out.println("Nenhum motorista disponivel para essa viagem no momento.");
+                                        System.out.println("Tente novamente mais tarde.");
+                                    } else {
+                                        try{
+
+                                            System.out.println("Qual o tipo de Viagem Deseja Fazer?(Passageiro / Entrega)");
+                                            String tipoDeViagem = scanner.nextLine().toUpperCase();
+                                            TipoDeViagem tipoViagem;
+                                            tipoViagem = TipoDeViagem.valueOf(tipoDeViagem);
+
+                                            System.out.println("Qual o tipo de Veiculo? (SUV, ECONOMICO, LUXO, MOTOCICLETA) ");
+                                            String tipoDeVeiculo = scanner.nextLine().toUpperCase();
+                                            TipoVeiculo tipoVeiculo;
+                                            tipoVeiculo = TipoVeiculo.valueOf(tipoDeVeiculo);
+
+                                            boolean validarMotorista = false;
+                                            Motorista motoristaCorrida = null;
+                                            for(Motorista mo: motoristasProcurandoCorrida){
+                                                if(mo.getVeiculo().getTipo().equals(tipoVeiculo)){
+                                                    motoristaCorrida = mo;
+                                                    validarMotorista = true;
+                                                    break;
+                                                }
+                                            }
+                                            if(validarMotorista == false) throw new Exception("Não existe nenhum motorista com esse tipo de veiculo disponivel.");
+
+                                            System.out.println("Motorista: " + motoristaCorrida.toString());
+
+
+                                            System.out.println("Informações da corrida: ");
+
+                                            System.out.println("Digite o nome do local de origem");
+                                            String nomeOrigem = scanner.nextLine();
+                                            System.out.println("endereço origem: ");
+                                            String enderecoOrigem = scanner.nextLine();
+                                            System.out.println("Digite o nome do local de destino");
+                                            String nomeDestino = scanner.nextLine();
+                                            System.out.println("endereço destino: ");
+                                            String enderecoDestino = scanner.nextLine();
+
+                                            // inicio forma de pagamento
+                                            System.out.println("Escolha a forma de pagamento");
+                                            System.out.println("Dinheiro,Pix ou Cartao");
+                                            String formaDePagamento = scanner.nextLine();
+                                            fachada.validarFormaDePagamento(formaDePagamento);
+                                            // validou se é dinheiro, pix ou cartao
+
+
+                                            Viagem viagemTemp = new Viagem(cidadeAtual, new Local(nomeOrigem, enderecoOrigem), new Local(nomeDestino, enderecoDestino), motoristaCorrida, clienteAtivo, tipoViagem, new FormaDePagamento(formaDePagamento));
+                                            // criou a viagem
+
+                                            // se forma de pagamento for cartão
+                                            if (formaDePagamento.equalsIgnoreCase("Cartao")) {
+                                                // cliente nao tem cartao
+                                                if (clienteAtivo.getCartoes().isEmpty()) {
+                                                    throw new ClienteNaoTemCartaoException();
+                                                }
+                                                // validar cartao do cliente
+                                                else {
+                                                    System.out.println("Qual o numero do cartão que deseja usar?");
+                                                    int numeroCartao = Integer.parseInt(scanner.nextLine());
+                                                    Cartao tempCartao = fachada.verificarNumCartao(clienteAtivo, numeroCartao);
+                                                    // cartão validado, verificar se tem saldo
+                                                    fachada.validarPagamento(tempCartao, viagemTemp.getValor());
+                                                }
+                                            }
+                                            // se todas verificacoes foram bem
+                                            // Dinheiro pix ou cartao
+                                            // se for cartão se cliente tem cartão
+                                            //se tiver cartão se tem limite suficiente
+                                            //a viagem é adicionada, se não, graças as excecoes nao é adicionada.
+                                            fachada.adicionarViagem(viagemTemp);
+                                            motoristasProcurandoCorrida.remove(motoristaCorrida);
+                                            System.out.println("Pedido de viagem feito, aguarde o motorista");
+                                            System.out.println();
+
+                                        } catch (Exception e) {
+                                            System.out.println(e.getMessage());
+                                        }
+
+                                    }
+                                }
+                                break;
+                            case 6:
                                 opcaomenor = -1;
                                 break;
                         }
