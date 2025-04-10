@@ -397,10 +397,7 @@ public class Main {
 
 
 
-                    System.out.println("Avalie o Cliente");
-                    double ava = Integer.parseInt(scanner.nextLine());
-                    fachada.avaliarViagemCliente(ava,clienteAtivo);
-                    break;
+
             }
         }
 
