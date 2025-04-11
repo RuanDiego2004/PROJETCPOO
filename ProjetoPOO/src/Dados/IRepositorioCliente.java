@@ -9,4 +9,5 @@ public interface IRepositorioCliente {
     List<Cliente> listarClientes();
     void avaliarViagem(double m,Cliente cliente);
     void adicionarCartao(Cartao cartao, Cliente cliente);
+    void salvarCliente();
 }

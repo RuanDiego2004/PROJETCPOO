@@ -112,7 +112,11 @@ public class Main {
                 break;
                 case 2:
                     while (opcaomenor != -1) {
-                        System.out.println("\033[47;30m CLIENTES " + cidadeAtual.nome.toUpperCase() + "\033[0m");
+                        System.out.println("\033[47;30m CLIENTES " + cidadeAtual.nome.toUpperCase() + " \033[0m");
+                        if(clienteAtivo != null) {
+                            System.out.print("Cliente ativo: " + clienteAtivo.getNome() + "\n");
+                        }
+
                         System.out.println("1 - Login");
                         System.out.println("2 - Buscar Cliente");
                         System.out.println("3 - Listar Clientes");
@@ -120,6 +124,7 @@ public class Main {
                         System.out.println("5 - Fazer Corrida");
                         System.out.println("6 - Adicionar cartão");
                         System.out.println("7 - Voltar");
+
                         opcaomenor = Integer.parseInt(scanner.nextLine());
                         switch(opcaomenor) {
                             case 1:
@@ -133,7 +138,7 @@ public class Main {
                                     System.out.println(e.getMessage());
                                     continue;
                                 }
-
+                                System.out.println("Login realizado com sucesso.");
                                 break;
 
                             case 2:
@@ -209,7 +214,9 @@ public class Main {
                                             }
                                             if(validarMotorista == false) throw new Exception("Não existe nenhum motorista com esse tipo de veiculo disponivel.");
 
-                                            System.out.println("Motorista: " + motoristaCorrida.toString());
+                                            System.out.println("Motorista encontrado!");
+                                            System.out.println("Nome " + motoristaCorrida.getNome());
+                                            System.out.println("Veiculo: \n" + motoristaCorrida.getVeiculo().toString());
 
 
                                             System.out.println("Informações da corrida: ");
@@ -257,6 +264,7 @@ public class Main {
                                             fachada.adicionarViagem(viagemTemp);
                                             motoristasProcurandoCorrida.remove(motoristaCorrida);
                                             System.out.println("Pedido de viagem feito, aguarde o motorista");
+                                            fachada.salvarCliente();
                                             System.out.println();
 
                                             System.out.println("Avalie o motorista");
@@ -278,7 +286,7 @@ public class Main {
                                     System.out.println("Digite o numero do cartão");
                                     int numeroCartao = Integer.parseInt(scanner.nextLine());
                                     System.out.println("Digite a senha do cartao");
-                                    int senhaCartao = scanner.nextInt();
+                                    int senhaCartao = Integer.parseInt(scanner.nextLine());
 
                                     System.out.println("Digite o limite do cartao");
                                     double limite = Double.parseDouble(scanner.nextLine());
@@ -398,7 +406,7 @@ public class Main {
                                     }
                                     else{
                                         motoristasProcurandoCorrida.add(motoristaAtivo);
-                                        System.out.println("Motorista " +motoristaAtivo.getNome() +" adicionado com sucesso!");
+                                        System.out.println("Motorista " +motoristaAtivo.getNome() +" agora está disponivel para realizar uma corrida.!");
                                     }
                                 }
 

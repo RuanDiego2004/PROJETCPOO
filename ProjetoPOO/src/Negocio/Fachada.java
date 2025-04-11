@@ -83,6 +83,10 @@ public class Fachada {
         gerenciadorCliente.adicionarCartao(cliente,numeroCartao,senhaCartao,limite);
     }
 
+    public void salvarCliente(){
+        gerenciadorCliente.salvarCliente();
+    }
+
     // fim cliente
 
     //inicio motorista

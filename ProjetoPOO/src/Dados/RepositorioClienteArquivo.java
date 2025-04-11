@@ -73,4 +73,8 @@ public class RepositorioClienteArquivo implements IRepositorioCliente {
         salvar();
     }
 
+    public void salvarCliente(){
+        salvar();
+    }
+
 }

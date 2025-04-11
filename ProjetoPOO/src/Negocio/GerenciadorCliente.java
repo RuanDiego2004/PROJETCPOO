@@ -28,6 +28,10 @@ public class GerenciadorCliente {
         return repositorio.listarClientes();
     }
 
+    public void salvarCliente(){
+        repositorio.salvarCliente();
+    }
+
     // Forma de pagamento
 
     public void adicionarCartao(Cliente cliente,int numeroCartao,int senhaCartao,double limite) throws CartaoJaCadastradoException {
@@ -43,6 +47,7 @@ public class GerenciadorCliente {
         if(cartao.getLimitediposnivel()< valor){
             throw new LimiteInsuficienteException();
         }
+        cartao.setLimitediposnivel(cartao.getLimitediposnivel()-valor);
     }
 
     public void validarFormaDePagamento(String tipo) throws FormaDePagamentoInvalidoException {
