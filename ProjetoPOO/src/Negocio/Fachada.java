@@ -18,6 +18,7 @@ public class Fachada {
          gerenciadorMotorista = new GerenciadorMotorista();
          gerenciadorViagem = new GerenciadorViagem();
     }
+
     public void adicionarViagem(Viagem viagem) {
         gerenciadorViagem.adicionarViagem(viagem);
     }
@@ -29,6 +30,10 @@ public class Fachada {
     public List<Viagem> listarPorCidade(Cidade cidade){
        return gerenciadorViagem.buscarPorCidade(cidade);
    }
+
+    public List<Viagem> listarViagensPorCliente(Cliente cliente){ return gerenciadorViagem.listarViagensPorCliente(cliente); }
+
+    public List<Viagem> listarViagensPorMotorista(Motorista motorista){ return gerenciadorViagem.listarViagensPorMotorista(motorista);}
 
     // fim viagem
 

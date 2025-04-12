@@ -16,6 +16,8 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+
+
         Fachada fachada = new Fachada();
         Cidade cidadeAtual = null;
         Cliente clienteAtivo = null;
@@ -61,6 +63,11 @@ public class Main {
         }
 
     }
+
+        for(Viagem v: fachada.listarViagem()){
+            System.out.println(v.toString());
+        }
+
         while(true){
 
 
@@ -204,8 +211,9 @@ public class Main {
                         System.out.println("2 - Fazer Corrida");
                         System.out.println("3 - Adicionar cartão");
                         System.out.println("4 - Listar cartões");
-                        System.out.println("5 - Visualizar motoristas disponiveis");
-                        System.out.println("6 - Voltar");
+                        System.out.println("5 - Listar corridas feitas");
+                        System.out.println("6 - Visualizar motoristas disponiveis");
+                        System.out.println("7 - Voltar");
 
                         opcaomenor = Integer.parseInt(scanner.nextLine());
                         switch(opcaomenor) {
@@ -354,7 +362,27 @@ public class Main {
                                     }
                                 }
                             break;
+
                             case 5:
+                                if(clienteAtivo == null){
+                                    System.out.println("\033[31mFaça login para listar corridas feitas\033[0m");
+                                }
+                                else{
+                                    try{
+                                        if(fachada.listarViagensPorCliente(clienteAtivo).isEmpty()){
+                                            System.out.println("Não fez nenhuma viagem.");
+                                            continue;
+                                        }
+                                        for(Viagem vi : fachada.listarViagensPorCliente(clienteAtivo)){
+                                            System.out.println(vi.toString());
+                                        }
+                                    }catch(Exception e){
+                                        System.out.println(e.getMessage());
+                                    }
+                                }
+                            break;
+
+                            case 6:
                                 if(motoristasProcurandoCorrida.isEmpty()){
                                     System.out.println("Nenhum motorista procurando corrida...");
                                     System.out.println("Tente novamente mais tarde");
@@ -366,7 +394,7 @@ public class Main {
                                     }
                                 }
                             break;
-                            case 6:
+                            case 7:
                                 opcaomenor = -1;
                                 break;
                         }
@@ -382,7 +410,8 @@ public class Main {
                         System.out.println("1 - Login");
                         System.out.println("2 - Fazer corrida");
                         System.out.println("3 - Cancelar procura por corrida");
-                        System.out.println("4 - Voltar");
+                        System.out.println("4 - Buscar viagens feitas");
+                        System.out.println("5 - Voltar");
 
                         opcaomenor = Integer.parseInt(scanner.nextLine());
                         switch(opcaomenor){
@@ -438,6 +467,24 @@ public class Main {
                                 }
                             break;
                             case 4:
+                                if(motoristaAtivo == null){
+                                    System.out.println("\033[31mFaça login para listar corridas feitas\033[0m");
+                                }
+                                else{
+                                    try{
+                                        if(fachada.listarViagensPorMotorista(motoristaAtivo).isEmpty()){
+                                            System.out.println("Não fez nenhuma viagem.");
+                                            continue;
+                                        }
+                                        for(Viagem vi : fachada.listarViagensPorMotorista(motoristaAtivo)){
+                                            System.out.println(vi.toString());
+                                        }
+                                    }catch(Exception e){
+                                        System.out.println(e.getMessage());
+                                    }
+                                }
+                            break;
+                            case 5:
                                 opcaomenor = -1;
                                 break;
                         }
