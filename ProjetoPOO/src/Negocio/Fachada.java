@@ -124,6 +124,16 @@ public class Fachada {
         }
         return m;
     }
+    public Boolean autenticarCPF(String cpf) {
+         if (cpf.matches("\\d{11}")) {
+           return true;
+        } else {
+             System.out.println();
+             System.out.println("CPF inválido. Somente números e 11 digitos");
+             System.out.println();
+             return false;
+        }
+}
     //fim Autenticadores
 
 

@@ -64,10 +64,6 @@ public class Main {
 
     }
 
-        for(Viagem v: fachada.listarViagem()){
-            System.out.println(v.toString());
-        }
-
         while(true){
 
 
@@ -102,6 +98,9 @@ public class Main {
                                 String nome = scanner.nextLine();
                                 System.out.print("CPF: ");
                                 cpf = scanner.nextLine();
+                                if(!fachada.autenticarCPF(cpf)){
+                                    continue;
+                                }
                                 System.out.print("Idade: ");
                                 int idade;
                                 try {
@@ -127,6 +126,9 @@ public class Main {
                                 String nomeMotorista = scanner.nextLine();
                                 System.out.print("CPF: ");
                                 cpf = scanner.nextLine();
+                                if(!fachada.autenticarCPF(cpf)){
+                                    continue;
+                                }
                                 System.out.println("Senha: ");
                                 senha = scanner.nextLine();
                                 System.out.print("Idade: ");
@@ -139,6 +141,9 @@ public class Main {
                                 }
                                 System.out.println("CNH :");
                                 cnh = scanner.nextLine();
+                                if(!fachada.autenticarCPF(cnh)){
+                                    continue;
+                                }
                                 System.out.print("Sexo: ");
                                 String sexoMotorista = scanner.nextLine();
                                 System.out.println("Tipo de Veiculo(SUV, ECONOMICO, LUXO, MOTOCICLETA): ");
@@ -213,7 +218,8 @@ public class Main {
                         System.out.println("4 - Listar cartões");
                         System.out.println("5 - Listar corridas feitas");
                         System.out.println("6 - Visualizar motoristas disponiveis");
-                        System.out.println("7 - Voltar");
+                        System.out.println("7 - Listar Dados");
+                        System.out.println("8 - Voltar");
 
                         opcaomenor = Integer.parseInt(scanner.nextLine());
                         switch(opcaomenor) {
@@ -386,8 +392,7 @@ public class Main {
                                 if(motoristasProcurandoCorrida.isEmpty()){
                                     System.out.println("Nenhum motorista procurando corrida...");
                                     System.out.println("Tente novamente mais tarde");
-                                }
-                                else{
+                                } else{
                                     for(Motorista m : motoristasProcurandoCorrida){
                                         System.out.println("Nome do motorista "+ m.getNome());
                                         System.out.println("Veiculo do motorista\n" + m.getVeiculo().toString());
@@ -395,6 +400,28 @@ public class Main {
                                 }
                             break;
                             case 7:
+                                if(clienteAtivo == null){
+                                    System.out.println("\033[31mFaça login para listar os dados \033[0m");
+                                    continue;
+                                } else{
+                                    try{
+                                        System.out.println("Seus Dados:");
+                                        for(Cliente cli : fachada.listarCliente()){
+                                            if(cli.equals(clienteAtivo)){
+                                                System.out.println(cli.toString(1));
+                                            }
+                                        }
+                                        System.out.println("Seus Cartões:");
+                                        for(Cartao c : clienteAtivo.getCartoes()){
+                                            System.out.println(c.toString());
+                                            System.out.println();
+                                        }
+                                    }catch(Exception e){
+                                        System.out.println(e.getMessage());
+                                    }
+                                }
+                            break;
+                            case 8:
                                 opcaomenor = -1;
                                 break;
                         }
@@ -411,6 +438,7 @@ public class Main {
                         System.out.println("2 - Fazer corrida");
                         System.out.println("3 - Cancelar procura por corrida");
                         System.out.println("4 - Buscar viagens feitas");
+                        System.out.println("5 - Listar dados");
                         System.out.println("5 - Voltar");
 
                         opcaomenor = Integer.parseInt(scanner.nextLine());
@@ -485,6 +513,23 @@ public class Main {
                                 }
                             break;
                             case 5:
+                                if(motoristaAtivo == null){
+                                    System.out.println("\033[31mFaça login para listar os dados \033[0m");
+                                    continue;
+                                } else{
+                                    try{
+                                        System.out.println("Seus Dados:");
+                                        for(Motorista motor : fachada.listarMotorista()){
+                                            if(motor.equals(motoristaAtivo)){
+                                                System.out.println(motor.toString(1));
+                                            }
+                                        }
+                                    }catch(Exception e){
+                                        System.out.println(e.getMessage());
+                                    }
+                                }
+                                break;
+                            case 6:
                                 opcaomenor = -1;
                                 break;
                         }
@@ -533,7 +578,16 @@ public class Main {
                 case 6:
                     exit(0);
                 break;
-
+                case 78:
+                    System.out.println("--------Clientes------------");
+                    for (Cliente cli : fachada.listarCliente()) {
+                        System.out.println(cli.toString(1));
+                    }
+                    System.out.println("--------Motoristas------------");
+                    for (Motorista motor : fachada.listarMotorista()) {
+                        System.out.println(motor.toString(1));
+                    }
+                    break;
 
             }
         }

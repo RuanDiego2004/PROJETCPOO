@@ -38,11 +38,12 @@ public class Cartao extends FormaDePagamento{
 
     @Override
     public String toString() {
-        return "Cartao{" +
-                "numero=" + numero +
-                ", senha=" + senha +
-                ", limite=" + limite +
-                ", limitediposnivel=" + limitediposnivel +
-                '}';
+        return String.format( "(" +
+                " Número: " + numero +
+                " Senha: " + senha +
+                " Limite: " + limite +
+                " Limite Diposnivel: %.2f" +
+                " )", getLimitediposnivel()
+        );
     }
 }
