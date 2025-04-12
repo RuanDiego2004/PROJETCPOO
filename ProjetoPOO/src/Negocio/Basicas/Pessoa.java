@@ -69,7 +69,7 @@ public abstract class Pessoa implements Serializable {
                 "Senha: %s%n"  +
                 "Sexo: %s%n"+
                 "Avaliação: %.2f%n",
-                getNome(), getIdade(), getSexo(),getCpf(),getSenha(), getAvaliacao()
+                getNome(), getIdade(), getCpf(), getSenha(), getSexo(), getAvaliacao()
 
 
         );
