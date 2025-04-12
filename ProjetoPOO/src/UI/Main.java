@@ -68,19 +68,102 @@ public class Main {
             System.out.println("\033[42;30m======== MENU - Cidade " + cidadeAtual.nome + " ========\033[0m");
 
             System.out.println("Qual caminho deseja seguir no sistema?");
-            System.out.println("1 - Cidade");
-            System.out.println("2 - Cliente");
-            System.out.println("3 - Motorista");
-            System.out.println("4 - Ajuda");
-            System.out.println("5 - Encerrar programa");
+            System.out.println("1 - Cadastrar-se");
+            System.out.println("2 - Cidade");
+            System.out.println("3 - Cliente");
+            System.out.println("4 - Motorista");
+            System.out.println("5 - Ajuda");
+            System.out.println("6 - Encerrar programa");
 
             opcao = Integer.parseInt(scanner.nextLine());
+
             opcaomenor = 0;
             clienteAtivo = null;
             motoristaAtivo = null;
 
             switch(opcao){
                 case 1:
+                    while(opcaomenor != -1){
+                        System.out.println("Voce deseja se cadastrar como cliente ou motorista?");
+                        System.out.println("1 - Cliente");
+                        System.out.println("2 - Motorista");
+                        System.out.println("3 - Voltar");
+                        opcaomenor = Integer.parseInt(scanner.nextLine());
+                        switch(opcaomenor){
+                            case 1:
+                                System.out.print("Nome: ");
+                                String nome = scanner.nextLine();
+                                System.out.print("CPF: ");
+                                cpf = scanner.nextLine();
+                                System.out.print("Idade: ");
+                                int idade;
+                                try {
+                                    idade = Integer.parseInt(scanner.nextLine());
+                                } catch (NumberFormatException e) {
+                                    System.out.println("Idade inválida! Deve ser um número inteiro.");
+                                    continue;
+                                }
+
+                                System.out.print("Sexo: ");
+                                String sexo = scanner.nextLine();
+                                System.out.println("Senha: ");
+                                senha = scanner.nextLine();
+                                try {
+                                    fachada.adicionarCliente(nome, cpf, idade, sexo, senha);
+                                    System.out.println("Cliente cadastrado com sucesso!");
+                                }catch (CPFJaUtilizadoException e){
+                                    System.out.println(e.getMessage());
+                                }
+                            break;
+                            case 2:
+                                System.out.print("Nome: ");
+                                String nomeMotorista = scanner.nextLine();
+                                System.out.print("CPF: ");
+                                cpf = scanner.nextLine();
+                                System.out.println("Senha: ");
+                                senha = scanner.nextLine();
+                                System.out.print("Idade: ");
+                                int idadeMotorista;
+                                try {
+                                    idadeMotorista = Integer.parseInt(scanner.nextLine());
+                                } catch (NumberFormatException e) {
+                                    System.out.println("Idade inválida! Deve ser um número inteiro.");
+                                    continue;
+                                }
+                                System.out.println("CNH :");
+                                cnh = scanner.nextLine();
+                                System.out.print("Sexo: ");
+                                String sexoMotorista = scanner.nextLine();
+                                System.out.println("Tipo de Veiculo(SUV, ECONOMICO, LUXO, MOTOCICLETA): ");
+                                String tipo = scanner.nextLine().toUpperCase();
+                                TipoVeiculo tipoVeiculo;
+                                try {
+                                    tipoVeiculo = TipoVeiculo.valueOf(tipo);
+                                }catch (IllegalArgumentException e) {
+                                    System.out.println("Opção inválida! Use SUV, ECONOMICO, LUXO, MOTOCICLETA");
+                                    continue;
+                                }
+                                System.out.println("Placa do Veiculo :");
+                                String placa = scanner.nextLine();
+                                System.out.print("Modelo do Veiculo: ");
+                                String modelo = scanner.nextLine();
+                                System.out.print("Cor do Veiculo: ");
+                                String cor = scanner.nextLine();
+                                try {
+                                    fachada.adicionarMotorista(nomeMotorista, cpf, idadeMotorista, sexoMotorista, cnh, new Veiculo(placa, tipoVeiculo, cor, modelo), senha);
+                                    System.out.println("Motorista cadastrado com sucesso!");
+                                } catch (Exception e) {
+                                    System.out.println(e.getMessage());
+                                }
+                            break;
+                            case 3:
+                                opcaomenor = -1;
+                            break;
+                        }
+                    }
+
+                break;
+                case 2:
                     while(opcaomenor != -1){
                         System.out.println("Oque deseja fazer?");
                         System.out.println("1 - Adicionar cidade");
@@ -110,7 +193,7 @@ public class Main {
 
 
                 break;
-                case 2:
+                case 3:
                     while (opcaomenor != -1) {
                         System.out.println("\033[47;30m CLIENTES " + cidadeAtual.nome.toUpperCase() + " \033[0m");
                         if(clienteAtivo != null) {
@@ -118,12 +201,11 @@ public class Main {
                         }
 
                         System.out.println("1 - Login");
-                        System.out.println("2 - Buscar Cliente");
-                        System.out.println("3 - Listar Clientes");
-                        System.out.println("4 - Cadastrar Cliente");
-                        System.out.println("5 - Fazer Corrida");
-                        System.out.println("6 - Adicionar cartão");
-                        System.out.println("7 - Voltar");
+                        System.out.println("2 - Fazer Corrida");
+                        System.out.println("3 - Adicionar cartão");
+                        System.out.println("4 - Listar cartões");
+                        System.out.println("5 - Visualizar motoristas disponiveis");
+                        System.out.println("6 - Voltar");
 
                         opcaomenor = Integer.parseInt(scanner.nextLine());
                         switch(opcaomenor) {
@@ -142,46 +224,6 @@ public class Main {
                                 break;
 
                             case 2:
-                                System.out.print("CPF: ");
-                                cpf = scanner.nextLine();
-                                Cliente c = fachada.buscarClientePorCpf(cpf);
-                                if (c != null) {
-                                    System.out.println(c.toString());
-                                } else {
-                                    System.out.println("Cliente não encontrado.");
-                                }
-                                break;
-
-                            case 3:
-                                System.out.println("Clientes Cadastrados:");
-                                for (Cliente cliente : fachada.listarCliente()) {
-                                    System.out.println(cliente.toString());
-                                }
-                            break;
-                            case 4:
-                                System.out.print("Nome: ");
-                                String nome = scanner.nextLine();
-                                System.out.print("CPF: ");
-                                cpf = scanner.nextLine();
-                                System.out.print("Idade: ");
-                                int idade;
-                                try {
-                                    idade = Integer.parseInt(scanner.nextLine());
-                                } catch (NumberFormatException e) {
-                                    System.out.println("Idade inválida! Deve ser um número inteiro.");
-                                    continue;
-                                }
-
-                                System.out.print("Sexo: ");
-                                String sexo = scanner.nextLine();
-                                System.out.println("Senha: ");
-                                 senha = scanner.nextLine();
-                                fachada.adicionarCliente(nome, cpf, idade, sexo, senha);
-                                System.out.println("Cliente cadastrado com sucesso!");
-                                break;
-
-
-                            case 5:
                                 if(clienteAtivo == null){
                                     System.out.println("Precisa fazer login para pedir uma corrida.");
                                 }
@@ -278,11 +320,12 @@ public class Main {
                                     }
                                 }
                                 break;
-                            case 6:
+                            case 3:
                                 if(clienteAtivo == null){
                                     System.out.println("\033[31mFaça login para adicionar cartão\033[0m");
                                 }
                                 else{
+                                    try{
                                     System.out.println("Digite o numero do cartão");
                                     int numeroCartao = Integer.parseInt(scanner.nextLine());
                                     System.out.println("Digite a senha do cartao");
@@ -290,16 +333,40 @@ public class Main {
 
                                     System.out.println("Digite o limite do cartao");
                                     double limite = Double.parseDouble(scanner.nextLine());
-
-                                    try{
-                                        fachada.adicionarCartão(clienteAtivo,numeroCartao,senhaCartao,limite);
-                                    }catch(CartaoJaCadastradoException e){
+                                    fachada.adicionarCartão(clienteAtivo,numeroCartao,senhaCartao,limite);
+                                    }catch(Exception e){
                                         System.out.println(e.getMessage());
                                     }
 
                                 }
                             break;
-                            case 7:
+                            case 4:
+                                if(clienteAtivo == null){
+                                    System.out.println("\033[31mFaça login para listar cartões\033[0m");
+                                }
+                                else{
+                                    if(clienteAtivo.cartoes.isEmpty()){
+                                        System.out.println("Não possui nenhum cartão.");
+                                        continue;
+                                    }
+                                    for(Cartao c : clienteAtivo.getCartoes()){
+                                        System.out.println(c.toString());
+                                    }
+                                }
+                            break;
+                            case 5:
+                                if(motoristasProcurandoCorrida.isEmpty()){
+                                    System.out.println("Nenhum motorista procurando corrida...");
+                                    System.out.println("Tente novamente mais tarde");
+                                }
+                                else{
+                                    for(Motorista m : motoristasProcurandoCorrida){
+                                        System.out.println("Nome do motorista "+ m.getNome());
+                                        System.out.println("Veiculo do motorista\n" + m.getVeiculo().toString());
+                                    }
+                                }
+                            break;
+                            case 6:
                                 opcaomenor = -1;
                                 break;
                         }
@@ -307,16 +374,15 @@ public class Main {
                 //fim case 1
                 break;
 
-                case 3:
+                case 4:
                     while (opcaomenor != -1) {
                         System.out.println("\033[47;30m MOTORISTAS " + cidadeAtual.nome.toUpperCase() + "\033[0m");
+                        if(motoristaAtivo != null)
+                            System.out.println("Motorista ativo: " + motoristaAtivo.getNome());
                         System.out.println("1 - Login");
-                        System.out.println("2 - Buscar Motorista");
-                        System.out.println("3 - Listar Motorista");
-                        System.out.println("4 - Cadastrar Motorista");
-                        System.out.println("5 - Fazer corrida");
-                        System.out.println("6 - Cancelar procura por corrida");
-                        System.out.println("7 - Voltar");
+                        System.out.println("2 - Fazer corrida");
+                        System.out.println("3 - Cancelar procura por corrida");
+                        System.out.println("4 - Voltar");
 
                         opcaomenor = Integer.parseInt(scanner.nextLine());
                         switch(opcaomenor){
@@ -334,67 +400,8 @@ public class Main {
 
                                 break;
 
+
                             case 2:
-                                System.out.print("CNH: ");
-                                cnh = scanner.nextLine();
-                                Motorista motorista = fachada.buscarMotoristaPorCNH(cnh);
-                                if (motorista != null) {
-                                    System.out.println(motorista.toString());
-                                } else {
-                                    System.out.println("Motorista não encontrado.");
-                                }
-                                break;
-                            case 3:
-                                System.out.println("Motoristas Cadastrados:");
-                                for (Motorista m : fachada.listarMotorista()) {
-                                    System.out.println(m.toString());
-                                }
-
-                                break;
-                            case 4:
-                                System.out.print("Nome: ");
-                                String nome = scanner.nextLine();
-                                System.out.print("CPF: ");
-                                cpf = scanner.nextLine();
-                                System.out.println("Senha: ");
-                                senha = scanner.nextLine();
-                                System.out.print("Idade: ");
-                                int idade;
-                                try {
-                                    idade = Integer.parseInt(scanner.nextLine());
-                                } catch (NumberFormatException e) {
-                                    System.out.println("Idade inválida! Deve ser um número inteiro.");
-                                    continue;
-                                }
-                                System.out.println("CNH :");
-                                cnh = scanner.nextLine();
-                                System.out.print("Sexo: ");
-                                String sexo = scanner.nextLine();
-                                System.out.println("Tipo de Veiculo(SUV, ECONOMICO, LUXO, MOTOCICLETA): ");
-                                String tipo = scanner.nextLine().toUpperCase();
-                                TipoVeiculo tipoVeiculo;
-                                try {
-                                    tipoVeiculo = TipoVeiculo.valueOf(tipo);
-                                }catch (IllegalArgumentException e) {
-                                    System.out.println("Opção inválida! Use SUV, ECONOMICO, LUXO, MOTOCICLETA");
-                                    continue;
-                                }
-                                System.out.println("Placa do Veiculo :");
-                                String placa = scanner.nextLine();
-                                System.out.print("Modelo do Veiculo: ");
-                                String modelo = scanner.nextLine();
-                                System.out.print("Cor do Veiculo: ");
-                                String cor = scanner.nextLine();
-                                try {
-                                    fachada.adicionarMotorista(nome, cpf, idade, sexo, cnh, new Veiculo(placa, tipoVeiculo, cor, modelo), senha);
-                                } catch (Exception e) {
-                                    System.out.println(e.getMessage());
-                                }
-
-                                System.out.println("Motorista cadastrado com sucesso!");
-
-                                break;
-                            case 5:
                                 if(motoristaAtivo == null) {
                                     System.out.println("Faça login para fazer uma corrida!");
                                 }
@@ -406,16 +413,16 @@ public class Main {
                                     }
                                     else{
                                         motoristasProcurandoCorrida.add(motoristaAtivo);
-                                        System.out.println("Motorista " +motoristaAtivo.getNome() +" agora está disponivel para realizar uma corrida.!");
+                                        System.out.println("Motorista " +motoristaAtivo.getNome() +" agora está disponivel para realizar uma corrida!");
                                     }
                                 }
 
-                            //fim fazer corrida
+
                             break;
 
-                            case 6:
+                            case 3:
                                 if(motoristaAtivo == null) {
-                                    System.out.println("Faca login para fazer uma corrida!");
+                                    System.out.println("Faca login para cancelar a busca por uma corrida!");
                                 }
                                 // após logado
                                 else{
@@ -430,29 +437,53 @@ public class Main {
                                     }
                                 }
                             break;
-                            case 7:
+                            case 4:
                                 opcaomenor = -1;
                                 break;
                         }
                     }
                 break;
-                case 4:
-                    System.out.println("\033[46;30m======== LISTANDO TUDO " + cidadeAtual.nome.toUpperCase() + " ========\033[0m");
-                    System.out.println();
-                    System.out.println("\033[47;30m MOTORISTAS " + cidadeAtual.nome.toUpperCase() + "\033[0m");
-                    for(Motorista m : fachada.listarMotorista()) {
-                        System.out.println(m.toString(1));
-                    }
-                    System.out.println("\033[47;30m CLIENTES " + cidadeAtual.nome.toUpperCase() + "\033[0m");
-                    for(Cliente c : fachada.listarCliente()) {
-                        System.out.println(c.toString(1));
-                    }
-                    System.out.println("\033[47;30m VIAGENS " + cidadeAtual.nome.toUpperCase() + "\033[0m");
-                    for (Viagem v : fachada.listarViagem()) {
-                        System.out.println(v.toString());
+                case 5:
+                    System.out.println("Bem vindo ao menu ajuda!");
+                    while(opcaomenor != -1) {
+                        System.out.println("Escolha uma opcao: ");
+                        System.out.println("1 - Cliente: como pedir uma corrida");
+                        System.out.println("2 - Motorista: como fazer uma corrida");
+                        System.out.println("3 - Listar os motoristas do sistema");
+                        System.out.println("4 - Listar os clientes do sistema");
+                        System.out.println("5 - Voltar");
+                        opcaomenor = Integer.parseInt(scanner.nextLine());
+                        switch (opcaomenor){
+                            case 1:
+                                System.out.println("Para pedir uma corrida, o primeiro passo que se deve fazer é o login.");
+                                System.out.println("Caso não esteja cadastrado, faça o \033[32mcadastro\033[0m no menu adequado e logo em seguida volte e entre no menu \033[32mCliente\033[0m.");
+                                System.out.println("Ao entrar no menu \033[32mCliente\033[0m, faça o login com o \033[34mCPF\033[0m e a \033[34mSENHA\033[0m que usou para o \033[32mcadastro\033[0m.");
+                                System.out.println("Após o login, selecione a opção de \033[35mpedir corrida\033[0m.");
+                                System.out.println("Caso não tenha \033[31mnenhum motorista disponivel\033[0m, volte novamente mais tarde.");
+                                System.out.println("Caso o contrario, preencha as infomações da corrida que deseja fazer e \033[32mpronto\033[0m!");
+                            break;
+                            case 2:
+                                System.out.println("Para fazer uma corrida, o primeiro passo que se deve fazer é o login.");
+                                System.out.println("Caso não esteja cadastrado, faça o \033[32mcadastro\033[0m no menu adequado e logo em seguida volte e entre no menu \033[32mMotorista\033[0m.");
+                                System.out.println("Ao entrar no menu \033[32mMotorista\033[0m, faça o login com a \033[34mCNH\033[0m e a \033[34mSENHA\033[0m que usou para o \033[32mcadastro\033[0m.");
+                                System.out.println("Após o login, selecione a opção de \033[35mfazer corrida\033[0m.");
+                                System.out.println("\033[32mPronto\033[0m, agora basta esperar um cliente!!");
+                            break;
+                            case 3:
+                                for(Cliente cli : fachada.listarCliente())
+                                    System.out.println(cli.toString());
+                            break;
+                            case 4:
+                                for(Motorista mo : fachada.listarMotorista())
+                                    System.out.println(mo.toString());
+                            break;
+                            case 5:
+                                opcaomenor = -1;
+                            break;
+                        }
                     }
                 break;
-                case 5:
+                case 6:
                     exit(0);
                 break;
 

@@ -9,7 +9,7 @@ public class Cartao extends FormaDePagamento{
     private double limitediposnivel;
 
     public Cartao(int numero, int senha, double limite) {
-        super("Cartão de Credito");
+        super("Cartao");
         this.numero = numero;
         this.senha = senha;
         this.limite = limite;
@@ -34,5 +34,15 @@ public class Cartao extends FormaDePagamento{
 
     public void setLimitediposnivel(double limitediposnivel) {
         this.limitediposnivel = limitediposnivel;
+    }
+
+    @Override
+    public String toString() {
+        return "Cartao{" +
+                "numero=" + numero +
+                ", senha=" + senha +
+                ", limite=" + limite +
+                ", limitediposnivel=" + limitediposnivel +
+                '}';
     }
 }
